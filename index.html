@@ -78,7 +78,60 @@
   <section class="view" id="view-messages">
    <div class="chatlayout">
     <div class="chatlist"><h3>Messages <span class="muted" style="font-weight:400">· demo</span></h3><input class="searchbox" id="chatSearch" placeholder="⌕  Search conversations"><div id="chatRows">
-     <div class="chatrow active" data-chat="Maya"><div class="avatar" style="background:linear-gradient(135deg,#f9c6a4,#f28db8)">M</div><div class="chatmeta"><strong>Maya <span class="online-dot"></span></strong><p>Okay, challenge accepted 😌</p></div><span class="chatstamp">now</span></div>
+    
+<div class="chatrow active" data-chat="Maya">
+  <div class="avatar" style="background:linear-gradient(135deg,#f9c6a4,#f28db8)">M</div>
+  <div class="chatmeta">
+    <strong>Maya <span class="online-dot"></span></strong>
+    <p>Okay, challenge accepted 😌</p>
+  </div>
+  <span class="chatstamp">now</span>
+</div>
+
+<div class="chatrow" data-chat="Aarav">
+  <div class="avatar" style="background:linear-gradient(135deg,#91caff,#a8a4ff)">A</div>
+  <div class="chatmeta">
+    <strong>Aarav</strong>
+    <p>That chess move was wild</p>
+  </div>
+  <span class="chatstamp">9:42</span>
+</div>
+
+<div class="chatrow" data-chat="Zoya">
+  <div class="avatar" style="background:linear-gradient(135deg,#f9b8d5,#d6a4ff)">Z</div>
+  <div class="chatmeta">
+    <strong>Zoya</strong>
+    <p>🎁 sent you a little surprise</p>
+  </div>
+  <span class="chatstamp">9:20</span>
+</div>
+
+<div class="chatrow" data-chat="Ishaan">
+  <div class="avatar" style="background:linear-gradient(135deg,#91e8c4,#75bdf5)">I</div>
+  <div class="chatmeta">
+    <strong>Ishaan</strong>
+    <p>Send me the quiz!</p>
+  </div>
+  <span class="chatstamp">yesterday</span>
+</div>
+     <div class="chatrow" data-chat="Riya">
+  <div class="avatar" style="background:linear-gradient(135deg,#ffd68a,#ff9fba)">R</div>
+  <div class="chatmeta">
+    <strong>Riya</strong>
+    <p>Besties forever 💖</p>
+  </div>
+  <span class="chatstamp">yesterday</span>
+</div>
+
+<div class="chatrow" data-chat="Vybora AI">
+  <div class="avatar" style="background:linear-gradient(135deg,#b4a4ff,#82e8c6)">✧</div>
+  <div class="chatmeta">
+    <strong>Vybora AI</strong>
+    <p>Your AI companion ✨</p>
+  </div>
+  <span class="chatstamp">AI</span>
+</div>
+
      <div class="chatrow" data-chat="Aarav"><div class="avatar" style="background:linear-gradient(135deg,#8fe0c4,#6b92c9)">A</div><div class="chatmeta"><strong>Aarav</strong><p>That chess move was wild</p></div><span class="chatstamp">9:42</span></div>
      <div class="chatrow" data-chat="Zoya"><div class="avatar" style="background:linear-gradient(135deg,#f5d58b,#e49aaf)">Z</div><div class="chatmeta"><strong>Zoya <span class="online-dot"></span></strong><p>🎁 sent you a little surprise</p></div><span class="chatstamp">9:20</span></div>
      <div class="chatrow" data-chat="Ishaan"><div class="avatar" style="background:linear-gradient(135deg,#a5b8ff,#9c82e9)">I</div><div class="chatmeta"><strong>Ishaan</strong><p>Send me the quiz!</p></div><span class="chatstamp">yesterday</span></div>
@@ -333,6 +386,35 @@ renderMessage(message) {
 #vyboraCloudBar button.secondary{background:#252d40;border-color:#4b5266}
 #vyboraCloudBar [hidden]{display:none!important}
 #vAuthStatus{margin:9px 0 0;color:#d8d2ee;font-size:13px}
+ 
+.chatrow {
+  cursor: pointer;
+  transition: background .2s ease, transform .2s ease;
+}
+
+.chatrow:hover {
+  background: rgba(180, 164, 255, .09);
+}
+
+.chatrow.active {
+  background: rgba(180, 164, 255, .15);
+}
+
+.chatmeta {
+  min-width: 0;
+  flex: 1;
+}
+
+.chatmeta p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chatstamp {
+  flex-shrink: 0;
+}
+
 </style>
 <section id="vyboraCloudBar" aria-label="VYBORA online account">
  <div class="vcloud-wrap">

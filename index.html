@@ -366,25 +366,60 @@ if (!configured) {
       }
 
       const { data, error } = await supabase
-        .from('vybora_messages')
-        .select('id,user_id,username,message,created_at')
-        .order('created_at', { ascending: true })
-        .limit(100);
+  .from('vybora_messages')
+  .select('id,user_id,username,message,created_at')
+  .order('created_at', { ascending: true })
+  .limit(100);
 
-      if (error) {
-        status('Could not load chat: ' + error.message);
-        loadingMessages = false;
-        return;
-      }
+if (error) {
+  status('Could not load chat: ' + error.message);
+  loadingMessages = false;
+  return;
+}
 
-      for (const m of (data || [])) {
-        window.VYBORA_UI.renderMessage({
-          name: m.username || 'VYBORA player',
-          text: m.message || '',
-          time: m.created_at ? new Date(m.created_at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : 'just now',
-          mine: m.user_id === currentUser.id
-        });
-      }
+const messages = data || [];
+
+// Get saved profiles for the people who sent these messages.
+const userIds = [...new Set(messages.map(m => m.user_id).filter(Boolean))];
+let profilesById = {};
+
+if (userIds.length) {
+  const { data: profiles, error: profileError } = await supabase
+    .from('vybora_profiles')
+    .select('id,username,display_name')
+    .in('id', userIds);
+
+  if (profileError) {
+    console.warn('Could not load chat profiles:', profileError.message);
+  } else {
+    profilesById = Object.fromEntries(
+      (profiles || []).map(p => [p.id, p])
+    );
+  }
+}
+
+for (const m of messages) {
+  const profile = profilesById[m.user_id] || {};
+  const displayName =
+    profile.display_name ||
+    profile.username ||
+    m.username ||
+    'VYBORA player';
+
+  window.VYBORA_UI.renderMessage({
+    name: displayName,
+    username: profile.username || '',
+    avatarText: displayName.trim().charAt(0).toUpperCase(),
+    text: m.message || '',
+    time: m.created_at
+      ? new Date(m.created_at).toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit'
+        })
+      : 'just now',
+    mine: m.user_id === currentUser.id
+  });
+}
 
       channel = supabase.channel('vybora-global-chat')
         .on('postgres_changes', {

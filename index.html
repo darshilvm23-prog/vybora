@@ -185,7 +185,74 @@ function sound(){if(!soundOn)return;try{let ctx=new(window.AudioContext||window.
 function navigate(view){if(!titles[view])return;currentView=view;$$('.view').forEach(v=>v.classList.toggle('active',v.id==='view-'+view));$$('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));$$('.mobile-nav button').forEach(b=>b.classList.toggle('active',b.dataset.goto===view));$('#eyebrow').textContent=titles[view][0];$('#pageTitle').textContent=titles[view][1];$('#pageSubtitle').textContent=titles[view][2];$('#newChat').style.display=view==='messages'?'none':'inline-block';$('#quickChallenge').style.display=['messages','arcade','challenges'].includes(view)?'inline-block':'none';if(view==='messages')renderChat();window.scrollTo({top:0,behavior:'smooth'})}
 $$('[data-view]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.view)));$$('[data-goto]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.goto)));
 function renderChat(){if(window.VYBORA_CLOUD && window.VYBORA_CLOUD.enabled){window.VYBORA_CLOUD.renderCurrentChat();return}let box=$('#messages');box.innerHTML='<div class="daydivider">TODAY · A LITTLE GOOD ENERGY</div>';let list=chatMessages[activeChat]||[];list.forEach(m=>appendMessage(m.from,m.text,m.time,m.mine,m.ai,false));box.scrollTop=box.scrollHeight;$('#activeName').textContent=activeChat;$('#activeAvatar').textContent=activeChat==='Vybora AI'?'✧':activeChat[0];$('#activeStatus').innerHTML=activeChat==='Vybora AI'?'✧ AI assistant · sample mode':'<span class="online-dot"></span>Active status · demo conversation';$('#messageInput').placeholder='Message '+activeChat+'…  (try @Vybora tell us a joke)';$$('.chatrow').forEach(r=>r.classList.toggle('active',r.dataset.chat===activeChat))}
-function appendMessage(from,text,time,mine=false,ai=false,save=true){let box=$('#messages'),row=document.createElement('div');row.className='msg'+(mine?' mine':'')+(ai?' ai-msg':'');let av=document.createElement('div');av.className='avatar';av.textContent=from==='Vybora AI'?'✧':from==='Darshil'?'D':from[0];if(from==='Vybora AI')av.style.background='linear-gradient(135deg,#b4a4ff,#82e8c6)';else if(from==='Maya')av.style.background='linear-gradient(135deg,#f9c6a4,#f28db8)';let bubble=document.createElement('div');bubble.className='bubble';if(ai){let strong=document.createElement('strong');strong.style.color='#cfc4ff';strong.textContent='Vybora AI';bubble.append(strong,document.createElement('br'))}bubble.append(document.createTextNode(text));let tm=document.createElement('span');tm.className='msgtime';tm.textContent=time||new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})+(mine?' · ✓✓':'');bubble.append(tm);row.append(av,bubble);box.append(row);box.scrollTop=box.scrollHeight;if(save&&chatMessages[activeChat])chatMessages[activeChat].push({from,text,time:tm.textContent,mine,ai});if(save)sound()}
+
+function appendMessage(from, text, time, mine = false, ai = false, save = true, username = '', avatarText = '') {
+  const box = $('#messages');
+  if (!box) return;
+
+  const row = document.createElement('div');
+  row.className = 'msg' + (mine ? ' mine' : '') + (ai ? ' ai-msg' : '');
+
+  const av = document.createElement('div');
+  av.className = 'avatar';
+  av.textContent = from === 'Vybora AI' ? '✧' : (avatarText || from?.trim()?.charAt(0) || 'V');
+
+  if (from === 'Vybora AI') {
+    av.style.background = 'linear-gradient(135deg,#b4a4ff,#82e8c6)';
+  } else if (from === 'Maya') {
+    av.style.background = 'linear-gradient(135deg,#f9c6a4,#f28db8)';
+  }
+
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble';
+
+  const header = document.createElement('div');
+  header.className = 'msg-profile';
+
+  const sender = document.createElement('strong');
+  sender.textContent = from || 'VYBORA player';
+  header.appendChild(sender);
+
+  if (username) {
+    const handle = document.createElement('span');
+    handle.className = 'msg-username';
+    handle.textContent = '@' + username.replace(/^@/, '');
+    header.appendChild(handle);
+  }
+
+  bubble.appendChild(header);
+
+  if (ai) {
+    const aiLabel = document.createElement('span');
+    aiLabel.className = 'ai-label';
+    aiLabel.textContent = '✧ AI';
+    header.appendChild(aiLabel);
+  }
+
+  const body = document.createElement('div');
+  body.className = 'msg-text';
+  body.textContent = text || '';
+  bubble.appendChild(body);
+
+  const tm = document.createElement('span');
+  tm.className = 'msgtime';
+  tm.textContent = time || new Date().toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit'
+  }) + (mine ? ' · ✓✓' : '');
+
+  bubble.appendChild(tm);
+  row.append(av, bubble);
+  box.appendChild(row);
+  box.scrollTop = box.scrollHeight;
+
+  if (save && chatMessages[activeChat]) {
+    chatMessages[activeChat].push({ from, text, time: tm.textContent, mine, ai });
+  }
+
+  if (save) sound();
+}
+
 function sendMessage(text){text=(text??$('#messageInput').value).trim();if(!text)return;if(window.VYBORA_CLOUD && window.VYBORA_CLOUD.enabled){window.VYBORA_CLOUD.sendMessage(text);return}$('#messageInput').value='';if(!chatMessages[activeChat])chatMessages[activeChat]=[];appendMessage('Darshil',text,'',true,false,true);if(/@vybora/i.test(text)){let command=text.replace(/@vybora/i,'').trim();setTimeout(()=>{let reply=aiReply(command);appendMessage('Vybora AI',reply,'AI · demo',false,true,true);gainXP(2)},550)}}
 $('#sendBtn').onclick=()=>sendMessage();$('#messageInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage()}});
 $$('[data-suggest]').forEach(b=>b.onclick=()=>{ $('#messageInput').value=b.dataset.suggest;sendMessage()});
@@ -231,10 +298,18 @@ setTheme('forest');renderChat();gainXP(0);
 window.VYBORA_UI = {
   get activeChat(){ return activeChat; },
   setActiveChat(name){ activeChat = name; },
-  renderMessage(message){
-    appendMessage(message.name || 'VYBORA player', message.text || '', message.time || '',
-      !!message.mine, false, false);
-  },
+renderMessage(message) {
+  appendMessage(
+    message.name || 'VYBORA player',
+    message.text || '',
+    message.time || '',
+    !!message.mine,
+    false,
+    false,
+    message.username || '',
+    message.avatarText || ''
+  );
+},
   clearMessages(){ $('#messages').replaceChildren(); },
   setLobbyHeader(){
     $('#activeName').textContent = 'VYBORA Global Lobby';

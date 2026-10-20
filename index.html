@@ -273,6 +273,50 @@ window.VYBORA_UI = {
   <p id="vAuthStatus" aria-live="polite">Setup needed: add your Supabase project URL and publishable key in this file.</p>
  </div>
 </section>
+ 
+<section id="vyboraSocial" aria-label="VYBORA friends and private messages">
+  <h2>People &amp; private messages</h2>
+
+  <div class="v-social-profile">
+    <input id="vsUsername" maxlength="20"
+      placeholder="Your username (e.g. darshil_23)">
+    <input id="vsDisplayName" maxlength="30"
+      placeholder="Your display name">
+    <input id="vsBio" maxlength="160"
+      placeholder="A little about you (optional)">
+    <button id="vsSaveProfile" type="button">Save profile</button>
+  </div>
+
+  <hr>
+
+  <h3>Find people</h3>
+  <input id="vsSearch" maxlength="30"
+    placeholder="Search usernames or display names">
+  <button id="vsSearchButton" type="button">Search</button>
+  <div id="vsSearchResults" aria-live="polite"></div>
+
+  <h3>Friend requests</h3>
+  <div id="vsRequests" aria-live="polite"></div>
+
+  <h3>Your friends</h3>
+  <div id="vsFriends" aria-live="polite"></div>
+
+  <section id="vsPrivateChat" hidden>
+    <h3 id="vsChatTitle">Private conversation</h3>
+    <div id="vsPrivateMessages"
+      style="height:280px;overflow-y:auto;padding:12px;border:1px solid #555;border-radius:12px"
+      aria-live="polite"></div>
+    <form id="vsSendForm">
+      <input id="vsMessageInput" maxlength="2000"
+        placeholder="Write a private message…" required>
+      <button type="submit">Send</button>
+    </form>
+    <button id="vsCloseChat" type="button">Close conversation</button>
+  </section>
+
+  <p id="vsStatus" role="status" aria-live="polite"></p>
+</section>
+
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
@@ -423,5 +467,387 @@ if (!configured) {
     status('Supabase could not start: ' + error.message + '. Check your project URL and publishable key.');
   }
 }
+</script>
+ <script type="module">
+  
+import { createClient } from
+  'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+const SOCIAL_URL = 'https://rkdbdxocclwiwoobupvd.supabase.co';
+const SOCIAL_KEY = 'sb_publishable_3Hh42OejAF7fYE65ky5xqQ_0JsReg55';
+const socialDb = createClient(SOCIAL_URL, SOCIAL_KEY);
+
+const vs = (id) => document.getElementById(id);
+const vsStatus = (message) => {
+  if (vs('vsStatus')) vs('vsStatus').textContent = message;
+};
+
+let socialUser = null;
+let activePrivateConversation = null;
+let privateChannel = null;
+let lastPrivateMessageId = null;
+
+function vsNode(tag, text) {
+  const el = document.createElement(tag);
+  el.textContent = text ?? '';
+  return el;
+}
+
+function vsButton(text, action) {
+  const button = vsNode('button', text);
+  button.type = 'button';
+  button.addEventListener('click', action);
+  return button;
+}
+
+function vsClear(id) {
+  vs(id)?.replaceChildren();
+}
+
+function vsAddLine(containerId, text, buttonText, action) {
+  const container = vs(containerId);
+  if (!container) return;
+  const line = document.createElement('div');
+  line.style.cssText =
+    'display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0';
+  line.append(vsNode('span', text));
+  if (buttonText) line.append(vsButton(buttonText, action));
+  container.append(line);
+}
+
+function vsCleanUsername(value) {
+  return String(value || '').trim().toLowerCase();
+}
+
+async function vsLoadProfile() {
+  if (!socialUser) return;
+
+  const { data, error } = await socialDb
+    .from('vybora_profiles')
+    .select('username,display_name,bio')
+    .eq('id', socialUser.id)
+    .maybeSingle();
+
+  if (error) {
+    vsStatus('Profile could not load: ' + error.message);
+    return;
+  }
+
+  if (data) {
+    vs('vsUsername').value = data.username;
+    vs('vsDisplayName').value = data.display_name;
+    vs('vsBio').value = data.bio || '';
+    return;
+  }
+
+  // Suggest a username for a new profile.
+  const base = String(
+    socialUser.user_metadata?.display_name ||
+    socialUser.email?.split('@')[0] || 'vybora_user'
+  ).toLowerCase().replace(/[^a-z0-9_]/g, '').slice(0, 15);
+
+  vs('vsUsername').value = base.length >= 3 ? base : 'user_' + socialUser.id.slice(0, 8);
+  vs('vsDisplayName').value =
+    socialUser.user_metadata?.display_name || base || 'VYBORA user';
+}
+
+vs('vsSaveProfile').addEventListener('click', async () => {
+  if (!socialUser) return vsStatus('Sign in to save your profile.');
+
+  const username = vsCleanUsername(vs('vsUsername').value);
+  const displayName = vs('vsDisplayName').value.trim();
+  const bio = vs('vsBio').value.trim();
+
+  if (!/^[a-z0-9_]{3,20}$/.test(username))
+    return vsStatus('Username must be 3–20 characters: lowercase letters, numbers or underscores.');
+  if (!displayName || displayName.length > 30)
+    return vsStatus('Enter a display name of up to 30 characters.');
+  if (bio.length > 160)
+    return vsStatus('Your bio must be 160 characters or fewer.');
+
+  const { error } = await socialDb.from('vybora_profiles').upsert({
+    id: socialUser.id,
+    username,
+    display_name: displayName,
+    bio
+  });
+
+  vsStatus(error
+    ? 'Could not save profile: ' + error.message
+    : 'Profile saved! Your username is @' + username);
+});
+
+async function vsSearchPeople() {
+  if (!socialUser) return vsStatus('Sign in to find people.');
+
+  const query = vs('vsSearch').value.trim();
+  if (query.length < 2) return vsStatus('Type at least 2 characters to search.');
+
+  const safe = query.replace(/[,%()]/g, ' ').trim();
+  const { data, error } = await socialDb
+    .from('vybora_profiles')
+    .select('id,username,display_name,bio')
+    .neq('id', socialUser.id)
+    .or(`username.ilike.%${safe}%,display_name.ilike.%${safe}%`)
+    .limit(20);
+
+  if (error) return vsStatus('Search failed: ' + error.message);
+
+  vsClear('vsSearchResults');
+  if (!data?.length) {
+    vsAddLine('vsSearchResults', 'No matching profiles found.');
+    return;
+  }
+
+  for (const person of data) {
+    const label = `${person.display_name} (@${person.username})` +
+      (person.bio ? ' — ' + person.bio : '');
+    vsAddLine('vsSearchResults', label, 'Add friend', async () => {
+      const { error: requestError } = await socialDb
+        .from('vybora_friendships')
+        .insert({
+          requester_id: socialUser.id,
+          addressee_id: person.id,
+          status: 'pending'
+        });
+
+      vsStatus(requestError
+        ? 'Friend request not sent: ' + requestError.message
+        : 'Friend request sent to @' + person.username + '!');
+      await vsLoadRequests();
+    });
+  }
+}
+
+vs('vsSearchButton').addEventListener('click', vsSearchPeople);
+vs('vsSearch').addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    vsSearchPeople();
+  }
+});
+
+async function vsLoadRequests() {
+  if (!socialUser) return;
+  vsClear('vsRequests');
+
+  const { data, error } = await socialDb
+    .from('vybora_friendships')
+    .select('id,requester_id,addressee_id,status')
+    .eq('addressee_id', socialUser.id)
+    .eq('status', 'pending');
+
+  if (error) return vsStatus('Requests could not load: ' + error.message);
+  if (!data?.length) {
+    vsAddLine('vsRequests', 'No pending requests.');
+    return;
+  }
+
+  for (const request of data) {
+    const { data: profile } = await socialDb
+      .from('vybora_profiles')
+      .select('username,display_name')
+      .eq('id', request.requester_id)
+      .maybeSingle();
+
+    const name = profile
+      ? `${profile.display_name} (@${profile.username})`
+      : 'VYBORA user';
+
+    vsAddLine('vsRequests', name, 'Accept', async () => {
+     const { data: accepted, error: acceptError } =
+  await socialDb.rpc('vybora_accept_friend_request', {
+    p_request_id: request.id
+  });
+
+vsStatus(
+  acceptError
+    ? 'Could not accept request: ' + acceptError.message
+    : accepted
+      ? 'Friend request accepted!'
+      : 'This request is no longer pending.'
+);
+
+await vsRefreshSocial();
+    });
+  }
+}
+
+async function vsLoadFriends() {
+  if (!socialUser) return;
+  vsClear('vsFriends');
+
+  const { data: rows, error } = await socialDb
+    .from('vybora_friendships')
+    .select('requester_id,addressee_id')
+    .eq('status', 'accepted')
+    .or(`requester_id.eq.${socialUser.id},addressee_id.eq.${socialUser.id}`);
+
+  if (error) return vsStatus('Friends could not load: ' + error.message);
+  if (!rows?.length) {
+    vsAddLine('vsFriends', 'No friends yet. Search for someone above!');
+    return;
+  }
+
+  for (const row of rows) {
+    const friendId = row.requester_id === socialUser.id
+      ? row.addressee_id : row.requester_id;
+
+    const { data: profile } = await socialDb
+      .from('vybora_profiles')
+      .select('id,username,display_name')
+      .eq('id', friendId)
+      .maybeSingle();
+
+    if (!profile) continue;
+
+    vsAddLine('vsFriends',
+      `${profile.display_name} (@${profile.username})`,
+      'Message privately', () => vsOpenPrivateChat(profile));
+  }
+}
+
+async function vsRefreshSocial() {
+  await Promise.all([vsLoadRequests(), vsLoadFriends()]);
+}
+
+function vsRenderPrivateMessage(message) {
+  if (message.id && message.id === lastPrivateMessageId) return;
+  if (message.id) lastPrivateMessageId = message.id;
+
+  const box = vs('vsPrivateMessages');
+  if (!box) return;
+
+  const line = document.createElement('div');
+  line.style.cssText = 'padding:7px 0;border-bottom:1px solid #7774';
+
+  const isMine = message.sender_id === socialUser?.id;
+  const heading = vsNode('strong', isMine ? 'You' : 'Friend');
+  const body = vsNode('div', message.body);
+  const time = vsNode('small',
+    message.created_at
+      ? new Date(message.created_at).toLocaleString()
+      : 'Just now');
+
+  line.append(heading, body, time);
+  box.append(line);
+  box.scrollTop = box.scrollHeight;
+}
+
+async function vsOpenPrivateChat(friend) {
+  if (!socialUser) return vsStatus('Sign in to message friends.');
+
+  const { data: conversationId, error } = await socialDb.rpc(
+    'vybora_open_direct', { p_other_user: friend.id }
+  );
+
+  if (error) return vsStatus('Could not open private chat: ' + error.message);
+
+  if (privateChannel) await socialDb.removeChannel(privateChannel);
+  privateChannel = null;
+  activePrivateConversation = conversationId;
+  lastPrivateMessageId = null;
+
+  vs('vsPrivateChat').hidden = false;
+  vs('vsChatTitle').textContent =
+    'Private chat with ' + friend.display_name + ' (@' + friend.username + ')';
+  vsClear('vsPrivateMessages');
+
+  const { data, error: loadError } = await socialDb
+    .from('vybora_private_messages')
+    .select('id,conversation_id,sender_id,body,created_at')
+    .eq('conversation_id', conversationId)
+    .order('created_at', { ascending: true })
+    .limit(100);
+
+  if (loadError) {
+    vsStatus('Messages could not load: ' + loadError.message);
+    return;
+  }
+
+  for (const message of data || []) vsRenderPrivateMessage(message);
+
+  privateChannel = socialDb
+    .channel('vybora-private-' + conversationId)
+    .on('postgres_changes', {
+      event: 'INSERT',
+      schema: 'public',
+      table: 'vybora_private_messages',
+      filter: 'conversation_id=eq.' + conversationId
+    }, (payload) => {
+      const message = payload.new;
+      if (message?.conversation_id === activePrivateConversation) {
+        vsRenderPrivateMessage(message);
+      }
+    })
+    .subscribe((state) => {
+      if (state === 'CHANNEL_ERROR')
+        vsStatus('Private live updates failed. Check Supabase Realtime and table policies.');
+    });
+
+  vsStatus('Private conversation opened.');
+}
+
+vs('vsSendForm').addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  if (!socialUser || !activePrivateConversation)
+    return vsStatus('Open a friend conversation first.');
+
+  const body = vs('vsMessageInput').value.trim();
+  if (!body || body.length > 2000) return;
+
+  const { error } = await socialDb
+    .from('vybora_private_messages')
+    .insert({
+      conversation_id: activePrivateConversation,
+      sender_id: socialUser.id,
+      body
+    });
+
+  if (error) return vsStatus('Message not sent: ' + error.message);
+
+  vs('vsMessageInput').value = '';
+  // Realtime delivers the saved message. No optimistic duplicate is added.
+});
+
+vs('vsCloseChat').addEventListener('click', async () => {
+  if (privateChannel) await socialDb.removeChannel(privateChannel);
+  privateChannel = null;
+  activePrivateConversation = null;
+  vs('vsPrivateChat').hidden = true;
+  vsClear('vsPrivateMessages');
+});
+
+async function vsSetSocialUser(user) {
+  socialUser = user || null;
+  if (!socialUser) {
+    if (privateChannel) await socialDb.removeChannel(privateChannel);
+    privateChannel = null;
+    activePrivateConversation = null;
+    vs('vsPrivateChat').hidden = true;
+    vsStatus('Sign in using the account bar to use profiles and private messages.');
+    return;
+  }
+
+  vsStatus('Signed in. Load or create your profile.');
+  await vsLoadProfile();
+  await vsRefreshSocial();
+}
+
+socialDb.auth.onAuthStateChange((_event, session) => {
+  // Defer work so the auth callback does not hold up Supabase auth processing.
+  Promise.resolve().then(() => vsSetSocialUser(session?.user || null));
+});
+
+const { data: initialSession } = await socialDb.auth.getSession();
+await vsSetSocialUser(initialSession.session?.user || null);
+
+// Optional bridge for other VYBORA UI components.
+window.VYBORA_SOCIAL = {
+  searchPeople: vsSearchPeople,
+  refresh: vsRefreshSocial,
+  openPrivateChat: vsOpenPrivateChat
+};
 </script>
 </body></html>

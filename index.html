@@ -618,7 +618,7 @@ $("#gs").addEventListener("keydown",e=>{if(e.key==="Enter"){go("explore");toast(
 /* panels needing backend */
 function bk(id,t,b){$(id).innerHTML=`<div class="sec"><strong>${t}</strong><span class="tag">Needs backend</span><p class="sub" style="margin-top:6px">${b}</p><button class="pill" disabled>Not connected</button></div>`}
 bk("#ex","Discovery","People, public communities and trending posts appear once accounts and a database are connected.");
-bk("#fr","Friend graph","Requests, accepts and online presence need authentication and realtime.");
+
 bk("#cm","Communities","Channels, roles and events need accounts with Row Level Security.");
 /* landing */
 $("#enter").onclick=()=>{$("#land").classList.add("out");setTimeout(()=>$("#land").remove(),700);stop=1};

@@ -1,1045 +1,1286 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>VYBORA — Your world, together</title>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VYBORA – Your World. Your People. Your Possibilities.</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
 <style>
-:root{--bg:#090d14;--panel:rgba(17,24,35,.78);--panel2:rgba(25,35,48,.84);--line:rgba(255,255,255,.09);--text:#f2f6fb;--muted:#9ba9b8;--purple:#9b87ff;--mint:#7ce6c0;--pink:#ff9dcf;--shadow:0 20px 60px #0007}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh;overflow-x:hidden}button,input,textarea{font:inherit}button{cursor:pointer;color:inherit;border:0}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
-.scene{position:fixed;inset:0;z-index:-3;overflow:hidden;background:linear-gradient(180deg,#0b1421 0%,#122c36 48%,#101b22 100%)}
-.scene:before{content:"";position:absolute;inset:-4%;background:linear-gradient(180deg,transparent 30%,#071014b8 80%),radial-gradient(ellipse at 70% 30%,#f0cba72b,transparent 22%),url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=2200&q=85') center/cover;filter:saturate(.72) brightness(.63);transform:scale(1.04);animation:slowzoom 35s ease-in-out infinite alternate}
-.scene:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#080d14d9 0%,#080d1470 48%,#080d149e 100%),radial-gradient(ellipse at 50% 0%,#8c87ff12,transparent 60%)}
-@keyframes slowzoom{to{transform:scale(1.13) translateY(-1%)}}
-.ambient{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:-1}.leaf{position:absolute;width:9px;height:16px;border-radius:90% 0 90% 0;background:#9dd7b05c;animation:drift linear infinite}.leaf:nth-child(1){left:8%;animation-duration:19s;animation-delay:-8s}.leaf:nth-child(2){left:28%;animation-duration:23s;animation-delay:-14s}.leaf:nth-child(3){left:58%;animation-duration:21s;animation-delay:-3s}.leaf:nth-child(4){left:83%;animation-duration:25s;animation-delay:-17s}@keyframes drift{0%{transform:translate(0,-10vh) rotate(0);opacity:0}10%{opacity:.6}100%{transform:translate(100px,110vh) rotate(480deg);opacity:0}}
-.app{max-width:1500px;margin:auto;padding:20px;min-height:100vh}.topbar{height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border:1px solid var(--line);border-radius:22px;background:#0a111bd9;backdrop-filter:blur(22px);box-shadow:var(--shadow);position:relative;z-index:5}
-.brand{display:flex;align-items:center;gap:11px;font-weight:850;letter-spacing:2px;font-size:17px}.brandmark{width:34px;height:34px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,#9a8aff,#79e9c4);color:#09111a;font-weight:950;box-shadow:0 0 24px #8f8aff40}.brand small{display:block;letter-spacing:1px;font-size:9px;color:#8fa2b2;font-weight:600;margin-top:-2px}
-.top-right{display:flex;align-items:center;gap:10px}.iconbtn,.softbtn,.primary,.navbtn,.mini{border:1px solid var(--line);background:#ffffff08;border-radius:12px;padding:10px 12px;transition:transform .2s,background .2s,border .2s}.iconbtn:hover,.softbtn:hover,.navbtn:hover,.mini:hover{background:#ffffff13;transform:translateY(-1px)}.primary{background:linear-gradient(120deg,#9c8cff,#78dfc0);color:#0a1218;font-weight:800;border:0;box-shadow:0 8px 24px #8e8aff30}.primary:hover{transform:translateY(-2px);filter:brightness(1.06)}.avatar{width:35px;height:35px;display:grid;place-items:center;border-radius:50%;background:linear-gradient(135deg,#f6c4a0,#9e8aff);color:#171220;font-weight:800;border:2px solid #ffffff35;flex-shrink:0}.layout{display:grid;grid-template-columns:220px minmax(280px,1fr) 270px;gap:16px;margin-top:16px;min-height:calc(100vh - 122px)}
-.panel{background:var(--panel);border:1px solid var(--line);backdrop-filter:blur(22px);border-radius:22px;box-shadow:var(--shadow);min-width:0}.sidebar{padding:15px;display:flex;flex-direction:column;gap:8px}.sectionlabel{color:#91a3b4;font-size:10px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;padding:12px 9px 5px}.navbtn{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:11px 12px;color:#b9c5d1;background:transparent;border-color:transparent}.navbtn .navicon{width:21px;text-align:center;font-size:16px}.navbtn.active{background:linear-gradient(100deg,#9b87ff26,#7ce6c012);border-color:#b5a8ff2b;color:#fff}.navbtn.active .navicon{color:var(--mint)}.sidebottom{margin-top:auto;padding:14px 10px 5px;color:#8192a1;font-size:12px}.online-dot{display:inline-block;width:7px;height:7px;background:#70e4b7;border-radius:50%;box-shadow:0 0 9px #70e4b7;margin-right:6px}
-.main{display:flex;flex-direction:column;overflow:hidden;min-height:620px}.mainhead{display:flex;align-items:center;justify-content:space-between;padding:20px 22px;border-bottom:1px solid var(--line);gap:12px}.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:1.8px;color:var(--mint);font-weight:800}.mainhead h1{margin:4px 0 0;font-size:22px;letter-spacing:-.5px}.mainhead p{margin:3px 0 0;color:var(--muted);font-size:12px}.headactions{display:flex;gap:8px}.content{padding:18px;overflow:auto;flex:1}.welcome{padding:21px;border:1px solid #ffffff17;border-radius:18px;background:linear-gradient(110deg,#152b32c9,#292044b8),url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1200&q=80') center/cover;position:relative;overflow:hidden;margin-bottom:16px}.welcome:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;right:-40px;top:-80px;background:#a6ffe22b;filter:blur(4px)}.welcome h2{font-size:25px;letter-spacing:-.8px;margin:5px 0 8px;max-width:440px}.welcome p{color:#d0dce2;max-width:470px;margin:0 0 17px}.chips{display:flex;gap:7px;flex-wrap:wrap}.chip{font-size:11px;padding:6px 9px;border:1px solid #ffffff22;border-radius:100px;background:#0003;color:#dce8e9}.sectionhead{display:flex;justify-content:space-between;align-items:center;margin:18px 2px 10px}.sectionhead h3{margin:0;font-size:14px}.muted{color:var(--muted)}.small{font-size:11px}.friends{display:flex;gap:12px;overflow:auto;padding:4px 1px 12px}.friend{min-width:68px;text-align:center;background:transparent;color:#d5dfe7;font-size:11px}.friend .avatar{margin:0 auto 7px;width:48px;height:48px;position:relative}.friend .avatar:after{content:"";position:absolute;width:10px;height:10px;border:2px solid #0c141d;background:#6de5b5;border-radius:50%;bottom:-1px;right:-1px}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.featurecard{border:1px solid var(--line);background:linear-gradient(135deg,#ffffff0c,#ffffff03);border-radius:17px;padding:15px;min-height:128px;position:relative;overflow:hidden;transition:.25s}.featurecard:hover{transform:translateY(-3px);border-color:#a89cff55;background:#ffffff10}.featureicon{width:39px;height:39px;border-radius:13px;display:grid;place-items:center;font-size:19px;background:linear-gradient(135deg,#a18cff30,#7ce6c020);margin-bottom:12px}.featurecard h4{margin:0 0 5px;font-size:13px}.featurecard p{margin:0;color:var(--muted);font-size:11px}.featurecard .go{position:absolute;right:13px;top:14px;color:#b5a8ff}
-.rightcol{display:flex;flex-direction:column;gap:16px}.rightpanel{padding:16px}.rightpanel h3{margin:0 0 13px;font-size:13px}.profile-mini{display:flex;align-items:center;gap:10px}.profile-mini strong{display:block;font-size:12px}.profile-mini small{color:var(--muted);font-size:10px}.progress{height:6px;border-radius:99px;background:#ffffff14;margin:13px 0 7px;overflow:hidden}.progress span{display:block;height:100%;width:64%;border-radius:99px;background:linear-gradient(90deg,var(--purple),var(--mint))}.statrow{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}.activity{display:flex;gap:10px;align-items:flex-start;margin:13px 0}.activityicon{width:31px;height:31px;display:grid;place-items:center;border-radius:11px;background:#ffffff0c;flex-shrink:0}.activity strong{font-size:11px;display:block}.activity p{font-size:10px;color:var(--muted);margin:2px 0 0}.theme-preview{height:84px;border-radius:13px;background:linear-gradient(180deg,#92b8a22b,#111d25aa),url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=600&q=75') center/cover;margin-bottom:10px}.theme-row{display:flex;gap:7px}.theme-dot{height:24px;flex:1;border-radius:8px;border:2px solid transparent}.theme-dot.selected{border-color:#fff}
-.view{display:none;animation:fadein .32s ease}.view.active{display:block}@keyframes fadein{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
-.searchbox{width:100%;border:1px solid var(--line);background:#ffffff08;border-radius:12px;padding:11px 13px;color:#fff;outline:none}.searchbox::placeholder{color:#8494a3}
-.chatlayout{display:grid;grid-template-columns:225px minmax(0,1fr);min-height:560px}.chatlist{border-right:1px solid var(--line);padding:14px;min-width:0}.chatlist h3{font-size:14px;margin:4px 0 12px}.chatrow{display:flex;align-items:center;gap:10px;padding:11px 8px;border-radius:13px;cursor:pointer;transition:.2s}.chatrow:hover,.chatrow.active{background:#ffffff0d}.chatrow .avatar{width:39px;height:39px}.chatmeta{min-width:0;flex:1}.chatmeta strong{font-size:12px;display:block}.chatmeta p{font-size:10px;color:var(--muted);margin:3px 0 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.chatstamp{font-size:9px;color:#8b9ba9;align-self:flex-start}.chatwindow{display:flex;flex-direction:column;min-width:0;min-height:560px}.chathead{padding:14px 17px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}.chathead .chatmeta{flex:1}.chattools{display:flex;gap:6px}.chattools button{padding:8px 9px}.messages{flex:1;overflow:auto;padding:18px;display:flex;flex-direction:column;gap:13px;max-height:440px;min-height:300px}.daydivider{text-align:center;color:#8192a0;font-size:10px;margin:4px}.msg{display:flex;gap:8px;align-items:flex-end;max-width:85%;animation:msgin .22s ease}.msg.mine{align-self:flex-end;flex-direction:row-reverse}.msg .avatar{width:26px;height:26px;font-size:10px}.bubble{padding:10px 12px;border:1px solid #ffffff12;background:#ffffff0c;border-radius:15px 15px 15px 4px;color:#e8edf3;font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere}.mine .bubble{background:linear-gradient(130deg,#7162b9d9,#3d8e82d9);border-color:#ffffff15;border-radius:15px 15px 4px 15px}.bubble .msgtime{display:block;text-align:right;font-size:9px;color:#d1dbe0a8;margin-top:5px}.ai-msg .bubble{border-color:#9e8cff55;background:linear-gradient(130deg,#8d7cff20,#70e7c010)}.composer{padding:13px;border-top:1px solid var(--line)}.composebar{display:flex;align-items:center;gap:7px;padding:7px;background:#080e16b8;border:1px solid var(--line);border-radius:15px}.composebar input{flex:1;min-width:0;background:transparent;border:0;color:#fff;outline:none;padding:7px}.composebar button{background:transparent;padding:8px;border-radius:9px;color:#c0cad5}.composebar button:hover{background:#ffffff10}.composerhint{display:flex;justify-content:space-between;color:#758696;font-size:9px;padding:7px 3px 0}.suggestions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.suggestions button{font-size:10px;border:1px solid #a89cff38;border-radius:99px;padding:6px 9px;background:#9c8cff0d;color:#d4ccff}
-.gamegrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.gamecard{min-height:170px;padding:0;overflow:hidden;border-radius:17px;border:1px solid var(--line);background:#101a25;text-align:left;transition:.25s;position:relative}.gamecard:hover{transform:translateY(-4px);border-color:#9b87ff8a;box-shadow:0 14px 35px #0005}.gameart{height:96px;display:grid;place-items:center;font-size:43px;position:relative;overflow:hidden;background:radial-gradient(circle at 30% 20%,#b5a6ff55,transparent 35%),linear-gradient(130deg,#1d3544,#29203e)}.gameart:after{content:"";position:absolute;width:170px;height:80px;border:1px solid #ffffff1b;border-radius:50%;transform:rotate(-25deg)}.gameinfo{padding:11px}.gameinfo strong{font-size:12px;display:block}.gameinfo small{font-size:10px;color:var(--muted)}.gamebadge{position:absolute;top:9px;left:9px;font-size:9px;border-radius:7px;padding:4px 6px;background:#0a1018b8;border:1px solid #ffffff18}
-.gamearena{padding:16px;border:1px solid var(--line);border-radius:18px;background:#0a111bd9;margin-top:14px}.arenahead{display:flex;align-items:center;justify-content:space-between;gap:10px}.board{display:grid;gap:7px;max-width:350px;margin:18px auto}.board.ttt{grid-template-columns:repeat(3,1fr)}.cell{aspect-ratio:1;border-radius:13px;border:1px solid #ffffff17;background:linear-gradient(135deg,#ffffff0c,#ffffff04);font-size:clamp(25px,5vw,44px);font-weight:800;color:#c7baff;transition:.18s}.cell:hover{background:#9c8cff1d;border-color:#a99aff77}.cell:disabled{cursor:default}.gamefeedback{text-align:center;color:var(--mint);font-weight:700;min-height:24px}.scoreline{display:flex;justify-content:center;gap:22px;color:var(--muted);font-size:12px}
-.quizquestion{font-size:18px;font-weight:750;margin:15px 0}.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.answer{padding:13px;border-radius:12px;border:1px solid var(--line);background:#ffffff08;text-align:left}.answer:hover{background:#ffffff12}.answer.correct{border-color:#71e0b1;background:#71e0b11b}.answer.wrong{border-color:#ff8caa;background:#ff8caa1b}
-.giftgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.gift{padding:17px 10px;border:1px solid var(--line);border-radius:16px;background:#ffffff08;text-align:center;transition:.25s}.gift:hover{transform:translateY(-4px);background:#ffffff12}.gift .emoji{font-size:38px;display:block;margin-bottom:8px;filter:drop-shadow(0 6px 12px #0006)}.gift strong{font-size:12px}.gift small{display:block;color:var(--muted);margin-top:4px}.gift.revealed{animation:reveal .65s ease}@keyframes reveal{0%{transform:scale(.7) rotate(-8deg);opacity:.4}65%{transform:scale(1.08) rotate(3deg)}100%{transform:scale(1);opacity:1}}
-.confetti{position:fixed;inset:0;pointer-events:none;z-index:50;overflow:hidden}.confetti i{position:absolute;top:-15px;width:7px;height:13px;background:hsl(var(--h),85%,70%);animation:confetti 2.3s ease-in forwards;left:var(--x);animation-delay:var(--d);border-radius:2px}@keyframes confetti{to{transform:translateY(110vh) rotate(850deg);opacity:0}}
-.modalback{position:fixed;inset:0;background:#02060bc9;backdrop-filter:blur(9px);z-index:20;display:none;align-items:center;justify-content:center;padding:18px}.modalback.open{display:flex;animation:fadein .2s}.modal{width:min(490px,100%);border-radius:22px;background:#111a26;border:1px solid #ffffff1a;box-shadow:0 30px 100px #000b;padding:22px;animation:modalin .25s ease}.modal h2{margin:0 0 6px;font-size:21px}.modal p{color:var(--muted);font-size:12px}.modalhead{display:flex;justify-content:space-between;align-items:center}.close{background:#ffffff0c;border-radius:10px;padding:7px 10px}.modalactions{display:flex;gap:8px;justify-content:flex-end;margin-top:18px}.field{display:block;margin:12px 0;color:#cbd5df;font-size:11px}.field input,.field textarea,.field select{display:block;width:100%;margin-top:6px;padding:11px;border-radius:11px;border:1px solid var(--line);background:#0a111a;color:#fff;resize:vertical}.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;z-index:80;background:#182531;border:1px solid #ffffff22;box-shadow:var(--shadow);border-radius:13px;padding:12px 17px;font-size:12px;transition:.25s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}.mobile-nav{display:none}
-@keyframes msgin{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}@keyframes modalin{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
-@media(max-width:1120px){.layout{grid-template-columns:190px minmax(0,1fr)}.rightcol{display:none}.gamegrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:760px){.app{padding:10px}.topbar{height:58px;padding:0 12px;border-radius:17px}.brand{font-size:14px}.top-right .softbtn{display:none}.layout{display:block;margin-top:10px}.sidebar{display:none}.main{min-height:calc(100vh - 90px);border-radius:18px}.mainhead{padding:16px}.mainhead h1{font-size:19px}.content{padding:12px}.welcome{padding:17px}.welcome h2{font-size:22px}.grid2{grid-template-columns:repeat(2,minmax(0,1fr))}.chatlayout{display:block;min-height:calc(100vh - 180px)}.chatlist{border-right:0;border-bottom:1px solid var(--line);padding:10px}.chatlist .searchbox{margin-bottom:7px}.chatrow{display:inline-flex;width:48%;vertical-align:top;padding:7px}.chatrow:nth-of-type(n+5){display:none}.chatwindow{min-height:420px}.messages{min-height:260px;max-height:44vh;padding:13px}.chathead{padding:10px}.chattools .optional{display:none}.composer{padding:9px}.composerhint{display:none}.gamegrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.gameart{height:80px;font-size:34px}.gameinfo{padding:9px}.giftgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.mobile-nav{position:sticky;bottom:8px;z-index:6;display:flex;justify-content:space-around;gap:4px;margin-top:10px;padding:8px;border:1px solid var(--line);border-radius:17px;background:#0a111beF;backdrop-filter:blur(20px)}.mobile-nav button{flex:1;background:transparent;color:#a9b8c6;padding:8px 3px;font-size:10px;border-radius:10px}.mobile-nav button.active{background:#9b87ff24;color:#fff}.answers{grid-template-columns:1fr}.top-right .iconbtn{padding:8px}.mainhead .headactions .softbtn{display:none}}
+:root{--bg:#f6f4fc;--s1:#ffffffcc;--ink:#17132e;--mute:#6d6a8f;--line:#17132e1a;--v:#7c3aed;--lav:#b79cff;--mint:#10b981;--glow:#7c3aed33;--f:"Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#060714;--s1:#10122acc;--ink:#eeedff;--mute:#9391bd;--line:#ffffff17;--glow:#8b5cf655;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#060714;--s1:#10122acc;--ink:#eeedff;--mute:#9391bd;--line:#ffffff17;--glow:#8b5cf655;color-scheme:dark}
+*{box-sizing:border-box}html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:15px/1.55 var(--f);overflow:hidden}
+svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+button{font:inherit;color:inherit}
+.reduce *,.reduce *::before{animation:none!important;transition:none!important}
+:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+/* landing */
+#land{position:fixed;inset:0;z-index:20;display:grid;place-items:center;text-align:center;padding:24px;overflow:auto;background:linear-gradient(120deg,#0a0824,#2a0f5c,#062a3a,#0a0824);background-size:300% 300%;animation:bg 18s ease infinite;color:#eeedff;transition:opacity .6s,transform .6s}
+#land.out{opacity:0;transform:scale(1.04);pointer-events:none}
+@keyframes bg{50%{background-position:100% 50%}}
+#cv{position:absolute;inset:0;width:100%;height:100%}
+.hero{position:relative;max-width:760px}
+.mark{width:84px;height:84px;margin:0 auto 18px;animation:fl 6s ease-in-out infinite}
+@keyframes fl{50%{transform:translateY(-8px)}}
+.hero h1{font-size:clamp(40px,8vw,84px);line-height:1;margin:0 0 14px;letter-spacing:-.03em}
+.grad{background:linear-gradient(90deg,#b79cff,#7c3aed 45%,#34d399);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:#c8c5ee;font-size:18px;margin:0 0 28px}
+.cta{border:0;cursor:pointer;padding:15px 34px;border-radius:99px;background:linear-gradient(90deg,#7c3aed,#6366f1);color:#fff;font-weight:700;font-size:16px;box-shadow:0 0 40px #7c3aed88;transition:transform .15s}
+.rise{opacity:0;transform:translateY(16px);animation:up .8s forwards}.rise:nth-child(2){animation-delay:.12s}.rise:nth-child(3){animation-delay:.24s}.rise:nth-child(4){animation-delay:.36s}
+@keyframes up{to{opacity:1;transform:none}}
+/* shell */
+.app{display:flex;height:100%;background:radial-gradient(700px 420px at 0 0,var(--glow),transparent),var(--bg)}
+nav{width:236px;padding:20px 14px;display:flex;flex-direction:column;gap:2px;border-right:1px solid var(--line);position:relative}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.2em;font-size:17px;padding:0 10px 22px}
+.logo svg{width:28px;height:28px}
+nav button.n{all:unset;cursor:pointer;display:flex;gap:12px;align-items:center;padding:11px 14px;border-radius:10px;color:var(--mute);position:relative;transition:color .2s,background .2s}
+nav button.n:hover{color:var(--ink);background:var(--line)}nav button.n:focus-visible{outline:2px solid var(--mint)}
+nav button.n[aria-current=page]{color:var(--ink)}
+nav button.n[aria-current=page]::before{content:"";position:absolute;left:-14px;top:8px;bottom:8px;width:3px;border-radius:3px;background:linear-gradient(var(--lav),var(--mint));box-shadow:0 0 12px var(--v)}
+.col{flex:1;display:flex;flex-direction:column;min-width:0}
+header{display:flex;gap:12px;align-items:center;padding:14px 28px;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.srch{flex:1;display:flex;gap:8px;align-items:center;border:1px solid var(--line);border-radius:99px;padding:8px 16px;color:var(--mute);max-width:460px}
+.srch input{all:unset;flex:1;color:var(--ink)}
+.ib{all:unset;cursor:pointer;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);color:var(--mute);transition:.2s}
+.ib:hover{color:var(--ink);border-color:var(--lav);box-shadow:0 0 14px var(--glow)}.ib:focus-visible{outline:2px solid var(--mint)}
+.pill{all:unset;cursor:pointer;padding:9px 18px;border-radius:99px;background:linear-gradient(90deg,var(--v),#6366f1);color:#fff;font-weight:600;transition:transform .15s,box-shadow .2s}
+.pill:hover{box-shadow:0 0 22px var(--glow);transform:translateY(-1px)}.pill:active{transform:scale(.97)}.pill:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+.pill.g{background:transparent;border:1px solid var(--line);color:var(--ink)}.pill[disabled]{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+main{flex:1;overflow:auto;padding:36px 28px}
+.view{display:none;max-width:860px;margin:auto}.view.on{display:block;animation:up .45s forwards}
+h2{font-size:clamp(28px,4vw,44px);letter-spacing:-.025em;line-height:1.05;margin:0 0 6px}
+.sub{color:var(--mute);margin:0 0 28px}
+.sec{padding:22px 0;border-top:1px solid var(--line)}
+.stories{display:flex;gap:18px;margin-bottom:26px;overflow-x:auto;padding:4px}
+.st{all:unset;cursor:pointer;text-align:center;font-size:12px;color:var(--mute)}
+.ring{width:64px;height:64px;border-radius:50%;padding:3px;background:conic-gradient(var(--lav),var(--v),var(--mint),var(--lav));animation:spin 6s linear infinite;display:grid;place-items:center;margin:0 auto 6px}
+.ring span{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:var(--bg);animation:spin 6s linear infinite reverse}
+@keyframes spin{to{transform:rotate(1turn)}}
+textarea.cp{width:100%;background:transparent;border:0;border-bottom:1px solid var(--line);color:var(--ink);font:inherit;font-size:20px;padding:8px 0;resize:none}
+textarea.cp:focus{outline:0;border-color:var(--lav)}
+.post{padding:18px 0;border-top:1px solid var(--line);animation:up .4s forwards}
+.post p{font-size:18px;margin:6px 0 10px;white-space:pre-wrap;overflow-wrap:anywhere}
+.like{all:unset;cursor:pointer;display:inline-flex;gap:6px;align-items:center;color:var(--mute)}
+.like.on{color:#f43f5e}.like.on svg{fill:#f43f5e;animation:pop .35s}
+@keyframes pop{50%{transform:scale(1.5)}}
+.sk{height:14px;border-radius:7px;background:linear-gradient(90deg,var(--line),#ffffff22,var(--line));background-size:200% 100%;animation:sh 1.2s infinite;margin:10px 0}
+@keyframes sh{to{background-position:-200% 0}}
+.tag{font-size:12px;padding:2px 10px;border-radius:99px;background:#f59e0b26;color:#d97706;margin-left:8px;vertical-align:middle;font-weight:500}.tag.ok{background:#10b98126;color:var(--mint)}
+.note{border-left:2px solid var(--lav);padding:4px 14px;color:var(--mute);margin:12px 0}
+.orb{width:140px;height:140px;border-radius:50%;margin:0 0 18px;background:radial-gradient(circle at 35% 30%,#fff9,transparent 35%),conic-gradient(from 0deg,#7c3aed,#34d399,#6366f1,#b79cff,#7c3aed);filter:blur(.4px);box-shadow:0 0 70px var(--glow),inset 0 0 30px #0006;animation:spin 14s linear infinite,br 4s ease-in-out infinite}
+@keyframes br{50%{scale:1.07}}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.chip{all:unset;cursor:pointer;padding:6px 14px;border-radius:99px;border:1px solid var(--line);color:var(--mute);transition:.2s}
+.chip:hover{color:var(--ink);border-color:var(--lav)}.chip[aria-pressed=true]{background:var(--v);color:#fff;border-color:var(--v)}.chip:focus-visible{outline:2px solid var(--mint)}
+.cbox{display:flex;gap:8px;align-items:center;border:1px solid var(--line);border-radius:18px;padding:8px 8px 8px 16px;background:var(--s1)}
+.cbox input[type=text]{all:unset;flex:1;color:var(--ink)}
+.bub{max-width:78%;padding:10px 16px;border-radius:20px 20px 20px 6px;background:var(--line);margin:6px 0;animation:up .3s forwards}
+.bub.me{margin-left:auto;border-radius:20px 20px 6px 20px;background:linear-gradient(90deg,var(--v),#6366f1);color:#fff}
+.bub.ai{background:linear-gradient(120deg,#7c3aed26,#10b98122);border:1px solid var(--lav)}
+.typing span{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--mute);margin:0 2px;animation:dot 1s infinite}.typing span:nth-child(2){animation-delay:.15s}.typing span:nth-child(3){animation-delay:.3s}
+@keyframes dot{50%{transform:translateY(-5px)}}
+.split{display:grid;grid-template-columns:1.1fr 1fr;gap:36px}
+.ttt{display:grid;grid-template-columns:repeat(3,84px);gap:6px;margin:14px 0}
+.ttt button{all:unset;cursor:pointer;height:84px;border-radius:14px;border:1px solid var(--line);display:grid;place-items:center;font-size:36px;font-weight:700;transition:.2s}
+.ttt button:hover{background:var(--glow)}.ttt button:focus-visible{outline:2px solid var(--mint)}
+.art{height:150px;border-radius:18px;margin-bottom:12px;background:radial-gradient(circle at 70% 30%,#34d39966,transparent 40%),linear-gradient(135deg,#2a0f5c,#7c3aed);display:grid;place-items:center;color:#fff}
+.art svg{width:56px;height:56px;stroke-width:1.2}
+table{width:100%;border-collapse:collapse}td{padding:10px 0;border-top:1px solid var(--line)}td:last-child{text-align:right}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--v);color:#fff;padding:10px 20px;border-radius:99px;opacity:0;transition:.3s;pointer-events:none;z-index:30}.toast.on{opacity:1;transform:translate(-50%,0)}
+.menu{position:absolute;right:28px;top:62px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:6px;display:none;z-index:9;min-width:180px;box-shadow:0 20px 50px #0006}.menu.on{display:block;animation:up .2s forwards}
+.menu button{all:unset;cursor:pointer;display:block;width:100%;padding:9px 12px;border-radius:8px;box-sizing:border-box}.menu button:hover{background:var(--line)}
+@media(max-width:760px){nav{position:fixed;bottom:0;left:0;right:0;width:auto;flex-direction:row;overflow-x:auto;background:var(--s1);backdrop-filter:blur(16px);border-top:1px solid var(--line);border-right:0;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));z-index:8}.logo{display:none}nav button.n{flex-direction:column;gap:2px;font-size:10px;padding:6px 10px}nav button.n[aria-current=page]::before{left:20%;right:20%;top:0;bottom:auto;width:auto;height:3px}header{padding:12px 14px}main{padding:22px 16px 96px}.split{grid-template-columns:1fr}.hide-m{display:none}}
+
+/* ===== VYBORA PREMIUM REDESIGN LAYER ===== */
+:root:not([data-theme="light"]){
+  --bg:#080914;
+  --s1:#111326e8;
+  --ink:#f3f1ff;
+  --mute:#9b9ab8;
+  --line:#ffffff16;
+  --v:#8b5cf6;
+  --lav:#c4b5fd;
+  --mint:#5eead4;
+  --glow:#8b5cf644;
+  color-scheme:dark;
+}
+:root[data-theme="light"]{
+  --bg:#f5f4fb;
+  --s1:#ffffffeb;
+  --ink:#17132e;
+  --mute:#77738f;
+  --line:#17132e18;
+  --v:#7c3aed;
+  --lav:#a78bfa;
+  --mint:#0f9f83;
+  --glow:#7c3aed22;
+  color-scheme:light;
+}
+html{background:var(--bg);scroll-behavior:smooth}
+body{
+  background:
+    radial-gradient(900px 520px at 75% -10%,#7545d51c,transparent 65%),
+    radial-gradient(700px 420px at 5% 90%,#22c7a40c,transparent 65%),
+    var(--bg);
+  letter-spacing:-.012em;
+}
+button,input,textarea{font-family:var(--f)}
+.app{background:transparent}
+nav{
+  width:258px;padding:26px 17px;
+  background:linear-gradient(180deg,#111326d9,#0a0b18d9);
+  border-right:1px solid var(--line);
+  backdrop-filter:blur(24px);
+}
+.logo{font-size:19px;letter-spacing:.24em;padding:4px 12px 34px}
+.logo svg{width:32px;height:32px;filter:drop-shadow(0 0 12px #9b76ff88)}
+nav button.n{
+  min-height:46px;margin:3px 0;padding:12px 15px;border-radius:13px;
+  font-size:14px;font-weight:500;gap:13px;
+}
+nav button.n svg{opacity:.82}
+nav button.n:hover{background:#ffffff0a;transform:translateX(3px)}
+nav button.n[aria-current=page]{
+  background:linear-gradient(100deg,#8b5cf629,#5eead40b);
+  color:var(--ink);box-shadow:inset 0 0 0 1px #a78bfa26;
+}
+nav button.n[aria-current=page]::before{
+  left:-17px;top:9px;bottom:9px;width:3px;
+  background:linear-gradient(var(--lav),var(--mint));
+  box-shadow:0 0 18px #a78bfa;
+}
+.col{min-width:0}
+header{
+  min-height:76px;padding:14px 34px;
+  position:sticky;top:0;z-index:7;
+  background:#090a17b8;border-bottom:1px solid var(--line);
+  backdrop-filter:blur(24px);
+}
+.srch{
+  background:#ffffff07;border:1px solid var(--line);
+  border-radius:13px;padding:11px 15px;max-width:520px;
+  transition:border-color .2s,box-shadow .2s;
+}
+.srch:focus-within{border-color:#a78bfa88;box-shadow:0 0 0 4px #8b5cf615}
+.srch input{font-size:13px}
+.ib{
+  width:42px;height:42px;background:#ffffff06;border-radius:13px;
+  color:var(--mute);transition:all .22s ease;
+}
+.ib:hover{background:#8b5cf61a;color:var(--ink);transform:translateY(-2px);border-color:#a78bfa66}
+.pill{
+  padding:11px 20px;border-radius:12px;
+  background:linear-gradient(110deg,#8b5cf6,#6554db 65%,#4f78d8);
+  box-shadow:0 7px 24px #7048df35;
+}
+.pill:hover{box-shadow:0 10px 30px #7048df55;transform:translateY(-2px)}
+.pill.g{background:#ffffff08;border:1px solid var(--line);box-shadow:none}
+main{padding:42px clamp(20px,4vw,58px);scrollbar-width:thin;scrollbar-color:#8b5cf655 transparent}
+.view{max-width:1040px}
+.view.on{animation:viewIn .5s cubic-bezier(.2,.8,.2,1) both}
+@keyframes viewIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+h2{font-size:clamp(32px,4vw,48px);font-weight:700;letter-spacing:-.055em}
+.sub{font-size:14px;color:var(--mute);line-height:1.7}
+.sec{border-top:1px solid var(--line)}
+#home>.sub{margin-bottom:32px}
+.stories{gap:22px;padding:12px 4px 22px}
+.ring{width:70px;height:70px;box-shadow:0 0 24px #8b5cf62b}
+.ring span{border:3px solid var(--bg)}
+textarea.cp{
+  background:linear-gradient(120deg,#ffffff08,#ffffff03);
+  border:1px solid var(--line);border-radius:17px;
+  min-height:105px;padding:17px 19px;font-size:16px;
+  transition:border-color .2s,box-shadow .2s;
+}
+textarea.cp:focus{border-color:#a78bfa88;box-shadow:0 0 0 4px #8b5cf615}
+#home>div[style*="display:flex"]{margin-top:14px!important}
+.post{
+  margin:14px 0;padding:21px 22px;border:1px solid var(--line);
+  border-radius:18px;background:linear-gradient(135deg,#ffffff08,#ffffff03);
+  transition:transform .22s,border-color .22s,background .22s;
+}
+.post:hover{transform:translateY(-2px);border-color:#a78bfa45;background:#ffffff0a}
+.post p{font-size:16px;line-height:1.7}
+.like{padding:7px 11px;border-radius:10px}
+.like:hover{background:#f43f5e12}
+.note{
+  border:1px solid #a78bfa2e;border-left:3px solid var(--lav);
+  border-radius:0 13px 13px 0;background:#8b5cf60b;
+  padding:12px 16px;font-size:13px;line-height:1.7;
+}
+.bub{padding:12px 17px;border:1px solid var(--line);font-size:14px;line-height:1.6}
+.bub.me{border:0;box-shadow:0 8px 22px #7048df2a}
+.bub.ai{border-color:#a78bfa44}
+.orb{
+  width:154px;height:154px;margin:2px auto 28px;
+  box-shadow:0 0 90px #8b5cf655,inset 0 0 35px #0007;
+  animation:spin 18s linear infinite,br 5s ease-in-out infinite;
+}
+#ai{text-align:center}
+#ai>.sub{margin-bottom:25px}
+#ai #log{text-align:left;max-width:760px;margin:24px auto}
+#ai .cbox{max-width:850px;margin:20px auto 0;text-align:left}
+#ai .chips{justify-content:center}
+.chip{
+  padding:8px 15px;border-radius:11px;background:#ffffff05;
+  font-size:13px;border-color:var(--line);
+}
+.chip:hover{background:#8b5cf61c;transform:translateY(-1px)}
+.chip[aria-pressed=true]{background:linear-gradient(110deg,#8b5cf6,#6554db);box-shadow:0 6px 20px #7048df33}
+.cbox{
+  border:1px solid var(--line);border-radius:16px;
+  background:#ffffff08;padding:9px 10px 9px 15px;
+  transition:border-color .2s,box-shadow .2s;
+}
+.cbox:focus-within{border-color:#a78bfa88;box-shadow:0 0 0 4px #8b5cf612}
+.cbox input[type=text]{font-size:14px}
+.split{gap:28px}
+.split>div{
+  padding:22px;border:1px solid var(--line);border-radius:20px;
+  background:linear-gradient(145deg,#ffffff09,#ffffff03);
+}
+.art{
+  height:170px;border-radius:15px;
+  background:radial-gradient(circle at 72% 25%,#5eead466,transparent 36%),linear-gradient(135deg,#17102f,#6842bb 58%,#1d4960);
+  box-shadow:inset 0 0 40px #ffffff0b;
+}
+.ttt{grid-template-columns:repeat(3,minmax(62px,84px));}
+.ttt button{
+  background:#ffffff07;border-radius:16px;border-color:var(--line);
+  font-size:34px;transition:all .2s;
+}
+.ttt button:hover{background:#8b5cf61c;border-color:#a78bfa66;transform:scale(1.025)}
+#watch .cbox{max-width:760px}
+#yp iframe{box-shadow:0 20px 60px #0005}
+table td{padding:15px 8px;border-color:var(--line);font-size:13px}
+.tag{border-radius:7px;padding:4px 9px;font-size:11px;background:#f59e0b18;color:#eab45a}
+.tag.ok{background:#10b98118;color:var(--mint)}
+.sk{border-radius:10px;background:linear-gradient(90deg,#ffffff08,#ffffff17,#ffffff08);background-size:200% 100%}
+.menu{
+  top:68px;right:32px;background:#141529;border-color:var(--line);
+  border-radius:15px;padding:8px;box-shadow:0 24px 70px #0008;
+}
+.menu button{font-size:13px;padding:11px 13px;border-radius:9px}
+.toast{border:1px solid #ffffff25;box-shadow:0 12px 40px #0005;backdrop-filter:blur(14px)}
+#land{
+  background:
+    radial-gradient(ellipse at 50% 45%,#5d35a855,transparent 38%),
+    radial-gradient(ellipse at 80% 80%,#087e7860,transparent 35%),
+    linear-gradient(125deg,#070817,#130d31 48%,#071b25);
+  background-size:180% 180%;animation:bg 22s ease infinite;
+}
+#land:after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(transparent 65%,#08091466),
+    radial-gradient(ellipse at center,transparent 35%,#05061166 100%);
+}
+.hero{z-index:1;max-width:850px}
+.mark{width:92px;height:92px;filter:drop-shadow(0 0 26px #a78bfa77)}
+.hero h1{font-size:clamp(48px,8vw,92px);letter-spacing:-.065em;font-weight:700}
+.hero p{font-size:clamp(15px,2vw,19px);color:#c9c5e6;letter-spacing:.01em}
+.cta{
+  padding:16px 35px;border-radius:13px;
+  background:linear-gradient(110deg,#8b5cf6,#6554db 65%,#32bba7);
+  box-shadow:0 12px 45px #7149dc55,0 0 0 1px #ffffff22 inset;
+}
+.cta:hover{transform:translateY(-3px);box-shadow:0 18px 55px #7149dc77}
+@media(min-width:1200px){main{padding-left:clamp(42px,5vw,76px);padding-right:clamp(42px,5vw,76px)}}
+@media(max-width:760px){
+  nav{background:#0d0e20ed;box-shadow:0 -10px 35px #0003}
+  nav button.n{min-width:62px;border-radius:11px}
+  header{background:#090a17e8;padding:11px 13px}
+  main{padding:25px 16px 105px}
+  .view{max-width:none}
+  .split>div{padding:17px}
+  .post{padding:17px}
+  .hero h1{font-size:clamp(42px,12vw,68px)}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}
+}
+
+
+/* VYBORA AUTH */
+#authGate{position:fixed;inset:0;z-index:50;display:none;place-items:center;padding:20px;background:#050611cc;backdrop-filter:blur(16px)}
+#authGate.open{display:grid}
+.auth-card{width:min(100%,460px);padding:28px;border:1px solid #a78bfa44;border-radius:22px;background:#111326f5;box-shadow:0 25px 90px #0009;color:#f3f1ff}
+.auth-card h2{font-size:30px;margin:0 0 7px}.auth-card p{color:#aaa8c8;margin:0 0 20px}
+.auth-card label{display:block;font-size:13px;color:#c9c6e6;margin:13px 0 6px}
+.auth-card input{width:100%;padding:13px 14px;border:1px solid #ffffff22;border-radius:11px;background:#ffffff09;color:#fff;font:inherit;outline:none}
+.auth-card input:focus{border-color:#a78bfa;box-shadow:0 0 0 3px #8b5cf622}
+.auth-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+#authStatus{min-height:22px;margin-top:14px;font-size:13px;color:#5eead4}
+#authClose{float:right;background:transparent;border:1px solid #ffffff25;border-radius:9px;padding:6px 10px;cursor:pointer;color:#fff}
+.auth-small{font-size:12px!important;margin-top:15px!important}
 </style>
-</head>
-<body>
-<div class="scene"></div><div class="ambient"><i class="leaf"></i><i class="leaf"></i><i class="leaf"></i><i class="leaf"></i></div>
-<div class="app">
-<header class="topbar">
- <div class="brand"><div class="brandmark">V</div><div>VYBORA<small>YOUR WORLD, TOGETHER</small></div></div>
- <div class="top-right"><button class="softbtn" id="themeButton">🌿 Nature theme</button><button class="iconbtn" id="notifBtn" title="Notifications">♧</button><button class="iconbtn" id="soundBtn" title="Sound effects">🔊</button><div class="avatar" title="Your profile">D</div></div>
-</header>
-<div class="layout">
-<aside class="panel sidebar">
- <div class="sectionlabel">Workspace</div>
- <button class="navbtn active" data-view="home"><span class="navicon">⌂</span>Home</button>
- <button class="navbtn" data-view="messages"><span class="navicon">◌</span>Messages <span id="unreadBadge" style="margin-left:auto;font-size:10px;background:#9b87ff33;padding:2px 6px;border-radius:7px">2</span></button>
- <button class="navbtn" data-view="arcade"><span class="navicon">▣</span>Game arcade</button>
- <button class="navbtn" data-view="challenges"><span class="navicon">⚡</span>Challenges</button>
- <button class="navbtn" data-view="gifts"><span class="navicon">♧</span>Gift studio</button>
- <button class="navbtn" data-view="ai"><span class="navicon">✧</span>Vybora AI</button>
- <div class="sectionlabel">Your world</div>
- <button class="navbtn" data-view="communities"><span class="navicon">◎</span>Communities</button>
- <button class="navbtn" data-view="achievements"><span class="navicon">✦</span>Achievements</button>
- <button class="navbtn" data-view="themes"><span class="navicon">☼</span>Theme studio</button>
- <div class="sidebottom"><span class="online-dot"></span>Prototype is ready to explore<br><span style="display:block;margin-top:8px">Made for good conversations ✨</span></div>
-</aside>
-<main class="panel main">
- <div class="mainhead"><div><div class="eyebrow" id="eyebrow">A LITTLE SPACE TO CONNECT</div><h1 id="pageTitle">Your world, together.</h1><p id="pageSubtitle">Good conversations. Great games. Unexpected little surprises.</p></div><div class="headactions"><button class="softbtn" id="quickChallenge">⚡ Challenge</button><button class="primary" id="newChat">＋ New chat</button></div></div>
- <div class="content">
-  <section class="view active" id="view-home">
-   <div class="welcome"><div class="eyebrow">MONDAY? EVERY DAY CAN BE AN ADVENTURE.</div><h2>A quieter corner of the internet. A bigger world of friends.</h2><p>Catch up, challenge someone, send a little surprise, or let Vybora AI spark the conversation.</p><div class="chips"><span class="chip">🌿 Nature-inspired themes</span><span class="chip">✦ AI in your chat</span><span class="chip">🎮 Play together</span></div></div>
-   <div class="sectionhead"><h3>Your people</h3><button class="mini" data-goto="messages">Open messages ↗</button></div>
-   <div class="friends">
-    <button class="friend" data-chat="Maya"><span class="avatar" style="background:linear-gradient(135deg,#f9c6a4,#f28db8)">M</span>Maya</button>
-    <button class="friend" data-chat="Aarav"><span class="avatar" style="background:linear-gradient(135deg,#8fe0c4,#6b92c9)">A</span>Aarav</button>
-    <button class="friend" data-chat="Zoya"><span class="avatar" style="background:linear-gradient(135deg,#f5d58b,#e49aaf)">Z</span>Zoya</button>
-    <button class="friend" data-chat="Ishaan"><span class="avatar" style="background:linear-gradient(135deg,#a5b8ff,#9c82e9)">I</span>Ishaan</button>
-    <button class="friend" data-chat="Riya"><span class="avatar" style="background:linear-gradient(135deg,#9ae3de,#e5b5ed)">R</span>Riya</button>
-    <button class="friend" data-chat="Vybora AI"><span class="avatar" style="background:linear-gradient(135deg,#b4a4ff,#82e8c6)">✧</span>Vybora AI</button>
-   </div>
-   <div class="sectionhead"><h3>Make something happen</h3><span class="muted small">Your next little adventure</span></div>
-   <div class="grid2">
-    <button class="featurecard" data-goto="messages"><span class="go">↗</span><div class="featureicon">💬</div><h4>Start a conversation</h4><p>Send a message, share a moment, or bring your group together.</p></button>
-    <button class="featurecard" data-goto="arcade"><span class="go">↗</span><div class="featureicon">🎮</div><h4>Game on</h4><p>Quick duels, clever puzzles, and friendly competition.</p></button>
-    <button class="featurecard" data-goto="gifts"><span class="go">↗</span><div class="featureicon">🎁</div><h4>Send a surprise</h4><p>Pick a little digital gift and add a note that feels personal.</p></button>
-    <button class="featurecard" data-goto="ai"><span class="go">↗</span><div class="featureicon">✧</div><h4>Ask Vybora AI</h4><p>Get a joke, invent a quiz, or find a better way to say it.</p></button>
-   </div>
-  </section>
-  <section class="view" id="view-messages">
-   <div class="chatlayout">
-    <div class="chatlist"><h3>Messages <span class="muted" style="font-weight:400">· demo</span></h3><input class="searchbox" id="chatSearch" placeholder="⌕  Search conversations"><div id="chatRows">
-    
-<div class="chatrow active" data-chat="Maya">
-  <div class="avatar" style="background:linear-gradient(135deg,#f9c6a4,#f28db8)">M</div>
-  <div class="chatmeta">
-    <strong>Maya <span class="online-dot"></span></strong>
-    <p>Okay, challenge accepted 😌</p>
-  </div>
-  <span class="chatstamp">now</span>
-</div>
+<style>
+#vyboraProfileBtn {
+  position: fixed !important;
+  right: 24px !important;
+  bottom: 24px !important;
+  z-index: 99999 !important;
+  display: block !important;
+  padding: 13px 22px !important;
+  border: 1px solid #9c83ff !important;
+  border-radius: 30px !important;
+  background: linear-gradient(135deg,#6845d9,#30205e) !important;
+  color: white !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  box-shadow: 0 0 22px #805bff66 !important;
+}
 
-<div class="chatrow" data-chat="Aarav">
-  <div class="avatar" style="background:linear-gradient(135deg,#91caff,#a8a4ff)">A</div>
-  <div class="chatmeta">
-    <strong>Aarav</strong>
-    <p>That chess move was wild</p>
-  </div>
-  <span class="chatstamp">9:42</span>
-</div>
+#vyboraProfileModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  overflow-y: auto;
+  padding: 25px 12px;
+  background: rgba(5,5,15,.88);
+  backdrop-filter: blur(12px);
+}
 
-<div class="chatrow" data-chat="Zoya">
-  <div class="avatar" style="background:linear-gradient(135deg,#f9b8d5,#d6a4ff)">Z</div>
-  <div class="chatmeta">
-    <strong>Zoya</strong>
-    <p>🎁 sent you a little surprise</p>
-  </div>
-  <span class="chatstamp">9:20</span>
-</div>
+#vyboraProfileModal .vp-card {
+  max-width: 520px;
+  margin: 20px auto;
+  padding: 25px;
+  border: 1px solid #7658c9;
+  border-radius: 22px;
+  background: #151326;
+  color: white;
+  box-shadow: 0 15px 60px #0009;
+}
 
-<div class="chatrow" data-chat="Ishaan">
-  <div class="avatar" style="background:linear-gradient(135deg,#91e8c4,#75bdf5)">I</div>
-  <div class="chatmeta">
-    <strong>Ishaan</strong>
-    <p>Send me the quiz!</p>
-  </div>
-  <span class="chatstamp">yesterday</span>
-</div>
-     <div class="chatrow" data-chat="Riya">
-  <div class="avatar" style="background:linear-gradient(135deg,#ffd68a,#ff9fba)">R</div>
-  <div class="chatmeta">
-    <strong>Riya</strong>
-    <p>Besties forever 💖</p>
-  </div>
-  <span class="chatstamp">yesterday</span>
-</div>
+#vyboraProfileModal .vp-avatar {
+  width: 90px;
+  height: 90px;
+  margin: 25px auto 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 50%;
+  background: linear-gradient(135deg,#8060ee,#38d9b0);
+  font-size: 35px;
+  font-weight: bold;
+}
 
-<div class="chatrow" data-chat="Vybora AI">
-  <div class="avatar" style="background:linear-gradient(135deg,#b4a4ff,#82e8c6)">✧</div>
-  <div class="chatmeta">
-    <strong>Vybora AI</strong>
-    <p>Your AI companion ✨</p>
-  </div>
-  <span class="chatstamp">AI</span>
-</div>
+#vyboraProfileModal .vp-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-     <div class="chatrow" data-chat="Aarav"><div class="avatar" style="background:linear-gradient(135deg,#8fe0c4,#6b92c9)">A</div><div class="chatmeta"><strong>Aarav</strong><p>That chess move was wild</p></div><span class="chatstamp">9:42</span></div>
-     <div class="chatrow" data-chat="Zoya"><div class="avatar" style="background:linear-gradient(135deg,#f5d58b,#e49aaf)">Z</div><div class="chatmeta"><strong>Zoya <span class="online-dot"></span></strong><p>🎁 sent you a little surprise</p></div><span class="chatstamp">9:20</span></div>
-     <div class="chatrow" data-chat="Ishaan"><div class="avatar" style="background:linear-gradient(135deg,#a5b8ff,#9c82e9)">I</div><div class="chatmeta"><strong>Ishaan</strong><p>Send me the quiz!</p></div><span class="chatstamp">yesterday</span></div>
-     <div class="chatrow" data-chat="Vybora AI"><div class="avatar" style="background:linear-gradient(135deg,#b4a4ff,#82e8c6)">✧</div><div class="chatmeta"><strong>Vybora AI</strong><p>Ready when you are ✨</p></div><span class="chatstamp">AI</span></div>
-    </div></div>
-    <div class="chatwindow">
-     <div class="chathead"><div class="avatar" id="activeAvatar" style="background:linear-gradient(135deg,#f9c6a4,#f28db8)">M</div><div class="chatmeta"><strong id="activeName">Maya</strong><p id="activeStatus"><span class="online-dot"></span>Active now · demo conversation</p></div><div class="chattools"><button class="mini" id="chatAi" title="Ask AI">@✧</button><button class="mini optional" id="chatChallenge" title="Challenge">⚡</button><button class="mini optional" id="chatGift" title="Send gift">🎁</button><button class="mini" id="chatMore" title="Details">···</button></div></div>
-     <div class="messages" id="messages"><div class="daydivider">TODAY · A LITTLE GOOD ENERGY</div>
-      <div class="msg"><div class="avatar" style="background:linear-gradient(135deg,#f9c6a4,#f28db8)">M</div><div class="bubble">Okay, important question: are you actually good at quizzes or just confidently wrong? 😂<span class="msgtime">10:02</span></div></div>
-      <div class="msg mine"><div class="avatar">D</div><div class="bubble">There is only one way to find out 😎<span class="msgtime">10:03 · ✓✓</span></div></div>
-      <div class="msg"><div class="avatar" style="background:linear-gradient(135deg,#f9c6a4,#f28db8)">M</div><div class="bubble">Fine. Loser sends the winner a mystery gift. Deal? 🎁<span class="msgtime">10:03</span></div></div>
-      <div class="msg ai-msg"><div class="avatar" style="background:linear-gradient(135deg,#b4a4ff,#82e8c6)">✧</div><div class="bubble"><strong style="color:#cfc4ff">Vybora AI</strong><br>Oh, this is getting interesting. I can set up a quiz battle with a mix of brain-teasers and delightfully unfair trick questions. 😏<span class="msgtime">AI suggestion · sample</span></div></div>
-     </div>
-     <div class="composer"><div class="composebar"><button id="emojiBtn" title="Add emoji">☺</button><button id="attachBtn" title="Attach file">＋</button><input id="messageInput" placeholder="Message Maya…  (try @Vybora tell us a joke)" autocomplete="off"><button id="composerGift" title="Send a gift">🎁</button><button id="composerChallenge" title="Challenge a friend">⚡</button><button class="primary" id="sendBtn" style="padding:9px 13px">➤</button></div><input type="file" id="fileInput" hidden accept="image/*,video/*,.pdf,.txt"><div class="suggestions"><button data-suggest="@Vybora tell us a joke">✧ Tell us a joke</button><button data-suggest="@Vybora challenge both of us">⚡ Start a challenge</button><button data-suggest="Deal. Loser sends a mystery gift 🎁">🎁 Send a playful reply</button></div><div class="composerhint"><span>Enter to send · Shift + Enter for a new line</span><span>Be kind. Be curious. ✨</span></div></div>
+#vyboraProfileModal .vp-name,
+#vyboraProfileModal .vp-muted {
+  text-align: center;
+}
+
+#vyboraProfileModal .vp-muted {
+  color: #aaa5c5;
+}
+
+#vyboraProfileModal .vp-section,
+#vyboraProfileModal .vp-stat {
+  margin-top: 18px;
+  padding: 15px;
+  border: 1px solid #39334f;
+  border-radius: 13px;
+  background: #201c35;
+}
+
+#vyboraProfileModal .vp-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 9px;
+  text-align: center;
+}
+
+#vyboraProfileModal .vp-input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 8px 0 15px;
+  padding: 12px;
+  border: 1px solid #51476d;
+  border-radius: 9px;
+  background: #100e1d;
+  color: white;
+}
+
+#vyboraProfileModal .vp-action {
+  padding: 11px 17px;
+  border: 0;
+  border-radius: 9px;
+  background: #7655df;
+  color: white;
+  cursor: pointer;
+}
+</style>
+
+<style>
+.fr-dashboard { display:grid; gap:18px; }
+.fr-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.fr-stat,.fr-panel {
+  background:rgba(120,100,180,.09);
+  border:1px solid rgba(160,140,255,.2);
+  border-radius:16px;
+  padding:18px;
+}
+.fr-stat { display:flex; flex-direction:column; gap:6px; }
+.fr-stat strong { font-size:26px; color:#b6a0ff; }
+.fr-stat span,.fr-muted { color:#aaa6bd; font-size:12px; }
+.fr-panel h3 { margin:0 0 14px; }
+#frSearch {
+  box-sizing:border-box;width:100%;padding:13px;
+  border-radius:11px;border:1px solid #65528f;
+  background:rgba(20,17,38,.9);color:white;
+  outline:none;
+}
+.fr-user {
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;padding:13px 0;border-bottom:1px solid #ffffff16;
+}
+.fr-user:last-child { border-bottom:0; }
+.fr-user-info { min-width:0; }
+.fr-user-info strong { display:block; }
+.fr-user-info small { color:#aaa6bd; }
+.fr-action {
+  padding:9px 13px;border:1px solid #9275ee;
+  border-radius:10px;background:#6245b8;color:white;
+  cursor:pointer;
+}
+.fr-action:disabled { opacity:.5;cursor:not-allowed; }
+#frMessage { color:#a995ff; }
+@media(max-width:500px) {
+  .fr-stat { padding:12px; }
+  .fr-stat strong { font-size:21px; }
+  .fr-user { align-items:flex-start; }
+}
+</style>
+
+</head><body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="lg" viewBox="0 0 48 48"><defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b79cff"/><stop offset=".55" stop-color="#7c3aed"/><stop offset="1" stop-color="#34d399"/></linearGradient></defs><path d="M6 10 24 40 42 10" fill="none" stroke="url(#gg)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="10" r="3.5" fill="#34d399"/></symbol>
+<symbol id="home" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8M5 10v10h14V10"/></symbol>
+<symbol id="explore" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></symbol>
+<symbol id="msg" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></symbol>
+<symbol id="users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14a6 6 0 0 1 3.5 6"/></symbol>
+<symbol id="comm" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="17" r="2.5"/><circle cx="19" cy="17" r="2.5"/><path d="m11 7.3-4.7 7.4M13 7.3l4.7 7.4M7.5 17h9"/></symbol>
+<symbol id="game" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="5"/><path d="M7 10.5v4M5 12.5h4M15.5 11.5h.01M18 13.5h.01"/></symbol>
+<symbol id="play" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="3"/><path d="m10 8.5 5 2.5-5 2.5zM8 21h8"/></symbol>
+<symbol id="ai" viewBox="0 0 24 24"><path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9zM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></symbol>
+<symbol id="cog" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/></symbol>
+<symbol id="s" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+<symbol id="pl" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="bell" viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0 1 12 0v6l2 2H4zM10 21h4"/></symbol>
+<symbol id="ht" viewBox="0 0 24 24"><path d="M12 20s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 9c0 6-8 11-8 11z"/></symbol>
+<symbol id="clip" viewBox="0 0 24 24"><path d="m20 11-8 8a5 5 0 0 1-7-7l8-8a3.5 3.5 0 0 1 5 5l-8 8a2 2 0 0 1-3-3l7-7"/></symbol>
+<symbol id="mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></symbol>
+<symbol id="up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+</defs></svg>
+
+<div id="land"><canvas id="cv" aria-hidden="true"></canvas>
+<div class="hero"><svg class="mark rise"><use href="#lg"/></svg>
+<h1 class="rise">Your World.<br><span class="grad">Your People.</span><br>Your Possibilities.</h1>
+<p class="rise">Chat, create, play and learn together in one universe.</p>
+<button class="cta rise" id="enter">Enter VYBORA</button></div></div>
+
+<div class="app"> id=<nav"nav" aria-label="Main"></nav>
+<div class="col"><header>
+<label class="srch"><svg class="i"><use href="#s"/></svg><input id="gs" placeholder="Search VYBORA" aria-label="Global search"></label>
+<span style="flex:1" class="hide-m"></span>
+<button class="pill" id="cr"><svg class="i" style="vertical-align:-4px;margin-right:6px"><use href="#pl"/></svg>Create</button>
+<button class="ib" id="bl" aria-label="Notifications"><svg class="i"><use href="#bell"/></svg></button>
+<button class="ib" id="ais" aria-label="VYBORA AI"><svg class="i"><use href="#ai"/></svg></button>
+<button class="ib" id="av" aria-label="Profile menu" aria-haspopup="true"><svg class="i"><use href="#users"/></svg></button></header><div style="padding:10px 20px;display:flex;justify-content:flex-end;">
+  <button id="directVyboraProfile"
+    style="background:linear-gradient(135deg,#7655df,#30205e);
+    color:white;border:1px solid #9c83ff;border-radius:25px;
+    padding:12px 20px;cursor:pointer;font-weight:bold;">
+    ◈ OPEN MY VYBORA PROFILE
+  </button>
+</div>
+<div class="menu" id="menu"><button data-go="settings">Settings</button><button id="th">Light/dark theme</button><button id="rm">Toggle reduced motion</button><button id="openVyboraProfile">◈ MY PROFILE</button></div>
+<main id="main">
+
+<section class="view" id="home"><h2>Good to see you.</h2><p class="sub">Share a moment with the people who matter.</p>
+<div class="stories" aria-label="Stories"><button class="st" data-t="Stories need the backend (image and video upload, expiry)."><div class="ring"><span><svg class="i"><use href="#pl"/></svg></span></div>Your story</button></div>
+<textarea class="cp" id="pt" rows="2" placeholder="What is on your mind?" aria-label="New post"></textarea>
+<div style="display:flex;gap:10px;align-items:center;margin-top:12px"><button class="pill" id="pb">Post</button><span class="tag">Saved on this device until accounts are connected</span></div>
+<div class="sec" style="margin-top:26px" id="feed"></div></section>
+
+<section class="view" id="explore"><h2>Explore</h2><p class="sub">People, communities, public posts and events.</p><div id="ex"></div></section>
+
+<section class="view" id="messages"><h2>Messages</h2><p class="sub">Private chats and groups, with AI replies clearly set apart.</p>
+<div class="note">Real-time messaging needs the backend, so there are no invented conversations. This is how messages will look.</div>
+<div class="sec"><div class="bub">Their message</div><div class="bub me">Your message</div><div class="bub ai"><strong class="grad">VYBORA AI</strong><br>AI replies get their own tint and label.</div>
+<div class="bub"><span class="typing"><span></span><span></span><span></span></span></div>
+<span class="tag">Style sample</span></div></section>
+
+<section class="view" id="friends">
+  <h2>Friends Network <span style="color:#a78bfa">◈</span></h2>
+  <p class="sub">Discover people. Build connections. Play together.</p>
+
+  <div class="fr-dashboard">
+    <div class="fr-stats">
+      <div class="fr-stat"><strong id="frCount">0</strong><span>FRIENDS</span></div>
+      <div class="fr-stat"><strong id="frIncoming">0</strong><span>REQUESTS</span></div>
+      <div class="fr-stat"><strong id="frSent">0</strong><span>SENT</span></div>
     </div>
-   </div>
-  </section>
-  <section class="view" id="view-arcade">
-   <div class="welcome"><div class="eyebrow">THE ARCADE</div><h2>Friendly rivalry. Excellent bragging rights.</h2><p>Choose a game and jump in. These mini-games are playable locally in this demo; online multiplayer needs a connected backend.</p><div class="chips"><span class="chip">🎯 Skill</span><span class="chip">🧠 Brainpower</span><span class="chip">⚡ Quick rounds</span></div></div>
-   <div class="sectionhead"><h3>Pick your game</h3><span class="muted small">Play now</span></div>
-   <div class="gamegrid">
-    <button class="gamecard" data-game="ttt"><div class="gameart">⭕ ❌<span class="gamebadge">2 PLAYERS · LOCAL</span></div><div class="gameinfo"><strong>Tic-Tac-Toe</strong><small>Quick tactical duel</small></div></button>
-    <button class="gamecard" data-game="quiz"><div class="gameart" style="background:radial-gradient(circle at 70% 30%,#ffc66b40,transparent 35%),linear-gradient(130deg,#3d2d43,#1b3540)">🧠<span class="gamebadge">TRIVIA</span></div><div class="gameinfo"><strong>Quiz Battle</strong><small>Five questions. One brain.</small></div></button>
-    <button class="gamecard" data-game="rps"><div class="gameart" style="background:radial-gradient(circle at 30% 30%,#9b87ff55,transparent 40%),linear-gradient(130deg,#1e3348,#33213d)">✊ ✋ ✌️<span class="gamebadge">QUICK MATCH</span></div><div class="gameinfo"><strong>Rock Paper Scissors</strong><small>Best of three</small></div></button>
-    <button class="gamecard" data-game="memory"><div class="gameart" style="background:radial-gradient(circle at 50% 30%,#7ce6c044,transparent 45%),linear-gradient(130deg,#183b3b,#22203d)">🃏<span class="gamebadge">PUZZLE</span></div><div class="gameinfo"><strong>Memory Match</strong><small>Find every pair</small></div></button>
-    <button class="gamecard" data-game="riddle"><div class="gameart">🔎<span class="gamebadge">BRAIN TEASER</span></div><div class="gameinfo"><strong>Riddle Arena</strong><small>Think sideways</small></div></button>
-    <button class="gamecard" data-game="reaction"><div class="gameart" style="background:radial-gradient(circle,#ff9dcf33,transparent 45%),linear-gradient(130deg,#39213a,#182c43)">⚡<span class="gamebadge">SPEED TEST</span></div><div class="gameinfo"><strong>Reaction Rush</strong><small>How fast are you?</small></div></button>
-   </div>
-   <div id="gameArena"></div>
-  </section>
-  <section class="view" id="view-challenges">
-   <div class="welcome"><div class="eyebrow">FRIENDLY COMPETITION</div><h2>Make it a challenge.</h2><p>Pick a mini-game, send an invitation card in chat, and settle the score with style.</p></div>
-   <div class="grid2"><button class="featurecard" data-game="quiz"><div class="featureicon">🧠</div><h4>Quiz Battle</h4><p>Five quick questions. Invite a friend and compare scores.</p></button><button class="featurecard" data-game="ttt"><div class="featureicon">⭕</div><h4>Tic-Tac-Toe</h4><p>Classic strategy, quick rounds, instant rematches.</p></button><button class="featurecard" data-game="riddle"><div class="featureicon">🔎</div><h4>Riddle Arena</h4><p>Drop a riddle into chat and see who cracks it.</p></button><button class="featurecard" data-game="reaction"><div class="featureicon">⚡</div><h4>Reaction Rush</h4><p>Test your reflexes and beat your own best time.</p></button></div>
-   <div class="gamearena"><div class="eyebrow">HOW CHALLENGES WORK</div><h3>Challenge → Play → Celebrate</h3><p class="muted">This standalone version can launch local games and create invitation cards. True synchronized matches between separate users require a server and real-time connection.</p><button class="primary" id="startChallenge">⚡ Create a challenge</button></div>
-  </section>
-  <section class="view" id="view-gifts">
-   <div class="welcome"><div class="eyebrow">A LITTLE SURPRISE</div><h2>Small gifts. Big smiles. ✨</h2><p>Choose a virtual gift, write a note, and open the surprise in a burst of confetti.</p></div>
-   <div class="sectionhead"><h3>Gift studio</h3><span class="muted small">Free digital gifts</span></div>
-   <div class="giftgrid" id="giftGrid">
-    <button class="gift" data-gift="Rose" data-emoji="🌹"><span class="emoji">🌹</span><strong>Rose</strong><small>A little appreciation</small></button>
-    <button class="gift" data-gift="Chocolates" data-emoji="🍫"><span class="emoji">🍫</span><strong>Chocolates</strong><small>Instant good mood</small></button>
-    <button class="gift" data-gift="Mystery Box" data-emoji="🎁"><span class="emoji">🎁</span><strong>Mystery Box</strong><small>Open to discover</small></button>
-    <button class="gift" data-gift="Teddy Bear" data-emoji="🧸"><span class="emoji">🧸</span><strong>Teddy Bear</strong><small>Maximum cozy</small></button>
-    <button class="gift" data-gift="Golden Star" data-emoji="🌟"><span class="emoji">🌟</span><strong>Golden Star</strong><small>For being brilliant</small></button>
-    <button class="gift" data-gift="Tiny Cake" data-emoji="🎂"><span class="emoji">🎂</span><strong>Tiny Cake</strong><small>Celebrate anything</small></button>
-   </div>
-   <div class="gamearena" id="giftResult"><div class="eyebrow">YOUR GIFT PREVIEW</div><h3>Pick something lovely.</h3><p class="muted">Your gift will appear here with its personal note and opening animation.</p></div>
-  </section>
-  <section class="view" id="view-ai">
-   <div class="welcome"><div class="eyebrow">YOUR CREATIVE SIDEKICK</div><h2>Meet Vybora AI. ✧</h2><p>Ask for a joke, a riddle, a clever comeback, or a brand-new challenge. In this demo, sample replies work locally; a real AI service needs API setup.</p></div>
-   <div class="gamearena"><div style="display:flex;gap:12px;align-items:center"><div class="avatar" style="background:linear-gradient(135deg,#b4a4ff,#82e8c6);width:46px;height:46px;font-size:20px">✧</div><div><strong>Vybora AI</strong><div class="muted small">Creative assistant · demo mode</div></div></div><div id="aiTranscript" style="padding:18px 0;line-height:1.7"><p><strong style="color:#cfc4ff">Vybora AI</strong><br>Hey there. 👋 I can make a quiz, find a funny reply, invent a riddle, or help you plan a friendly challenge. What's the vibe?</p></div><div class="composebar"><input id="aiInput" placeholder="Ask anything… try “give me a tricky riddle”"><button class="primary" id="aiSend">Ask ✧</button></div><div class="suggestions"><button data-ai="Tell me a hilarious clean joke">😂 Joke</button><button data-ai="Give me a tricky riddle and answer">🔎 Riddle</button><button data-ai="Create a five-question general knowledge quiz">🧠 Make a quiz</button><button data-ai="Give me a friendly challenge idea">⚡ Challenge idea</button></div></div>
-  </section>
-  <section class="view" id="view-communities">
-   <div class="welcome"><div class="eyebrow">FIND YOUR PEOPLE</div><h2>Little corners for big interests.</h2><p>Join a community around games, study sessions, creativity, films, or nature.</p></div>
-   <div class="grid2"><button class="featurecard community" data-community="Cozy Gamers"><div class="featureicon">🎮</div><h4>Cozy Gamers</h4><p>Casual games, good vibes, and rematches.</p></button><button class="featurecard community" data-community="Study Grove"><div class="featureicon">🌱</div><h4>Study Grove</h4><p>Study together, swap tips, celebrate progress.</p></button><button class="featurecard community" data-community="Creative Corner"><div class="featureicon">🎨</div><h4>Creative Corner</h4><p>Share ideas, art, and little projects.</p></button><button class="featurecard community" data-community="Nature Club"><div class="featureicon">🏞️</div><h4>Nature Club</h4><p>Beautiful places, wildlife, and slow moments.</p></button></div>
-  </section>
-  <section class="view" id="view-achievements">
-   <div class="welcome"><div class="eyebrow">YOUR PROGRESS</div><h2>Every little win counts.</h2><p>Explore achievements and collect badges as you play and connect.</p></div>
-   <div class="grid2" id="achievementGrid">
-    <div class="featurecard"><div class="featureicon">🧠</div><h4>Quiz Genius</h4><p>Answer quiz questions correctly.</p><span class="chip">Unlocked by demo activity</span></div>
-    <div class="featurecard"><div class="featureicon">🎁</div><h4>Gift Master</h4><p>Send your first virtual surprise.</p><span class="chip" id="giftBadge">Not yet unlocked</span></div>
-    <div class="featurecard"><div class="featureicon">⚡</div><h4>Ultimate Challenger</h4><p>Try a game challenge.</p><span class="chip" id="challengeBadge">Ready to unlock</span></div>
-    <div class="featurecard"><div class="featureicon">🌿</div><h4>Nature Lover</h4><p>Personalize your own digital world.</p><span class="chip" id="natureBadge">Explore themes</span></div>
-   </div>
-   <div class="gamearena"><div class="eyebrow">YOUR LEVEL</div><h3 id="levelText">Level 1 · Curious Explorer</h3><div class="progress"><span id="xpBar" style="width:25%"></span></div><div class="statrow"><span id="xpText">25 / 100 XP</span><span id="badgeCount">0 badges earned</span></div></div>
-  </section>
-  <section class="view" id="view-themes">
-   <div class="welcome"><div class="eyebrow">THEME STUDIO</div><h2>Find your kind of calm.</h2><p>Change the mood of your VYBORA space. Your choice updates the background instantly.</p></div>
-   <div class="grid2">
-    <button class="featurecard themeChoice" data-theme="forest"><div class="featureicon">🌲</div><h4>Forest Escape</h4><p>Sunlit trees, green tones, quiet energy.</p></button>
-    <button class="featurecard themeChoice" data-theme="ocean"><div class="featureicon">🌊</div><h4>Ocean Dream</h4><p>Cool blues and a peaceful horizon.</p></button>
-    <button class="featurecard themeChoice" data-theme="aurora"><div class="featureicon">🌌</div><h4>Aurora Night</h4><p>Deep skies with violet and teal.</p></button>
-    <button class="featurecard themeChoice" data-theme="sunset"><div class="featureicon">🌅</div><h4>Sunset Paradise</h4><p>Warm light and soft rose colours.</p></button>
-   </div>
-   <div class="gamearena"><div class="eyebrow">MOTION SETTINGS</div><h3>Keep it comfortable</h3><label style="display:flex;align-items:center;gap:10px;margin:12px 0"><input type="checkbox" id="motionToggle"> Reduce background motion</label><label style="display:flex;align-items:center;gap:10px;margin:12px 0"><input type="checkbox" id="contrastToggle"> Increase panel contrast</label><button class="primary" id="saveTheme">Save theme preference</button></div>
-  </section>
+
+    <div class="fr-panel">
+      <h3>⌕ Discover people</h3>
+      <input id="frSearch" placeholder="Search by username..." autocomplete="off">
+      <div id="frSearchResults"><p class="fr-muted">Search for VYBORA users.</p></div>
+    </div>
+
+    <div class="fr-panel">
+      <h3>◈ Incoming requests</h3>
+      <div id="frIncomingList"><p class="fr-muted">Loading requests...</p></div>
+    </div>
+
+    <div class="fr-panel">
+      <h3>↗ Sent requests</h3>
+      <div id="frSentList"><p class="fr-muted">Loading sent requests...</p></div>
+    </div>
+
+    <div class="fr-panel">
+      <h3>✦ My friends</h3>
+      <div id="frFriendsList"><p class="fr-muted">Loading friends...</p></div>
+    </div>
+
+    <p id="frMessage" role="status" aria-live="polite"></p>
+    <button class="pill" id="frRefresh">↻ Refresh network</button>
+  </div>
+</section>
+
+
+<section class="view" id="communities"><h2>Communities</h2><p class="sub">Channels, roles, events and polls.</p><div id="cm"></div></section>
+
+<section class="view" id="arcade"><h2>Arcade</h2><p class="sub">Play together. Every move and score is verified on a server once online.</p>
+<div class="split"><div><div class="art"><svg class="i"><use href="#game"/></svg></div><strong>Tic-tac-toe</strong><span class="tag ok">Same screen</span>
+<div class="ttt" id="ttt"></div><div id="tst" aria-live="polite" class="sub" style="margin:0 0 10px"></div><button class="pill g" id="trs">New game</button></div>
+<div><strong>Online rooms</strong><span class="tag">Needs backend</span>
+<p class="sub">Chess, Ludo, Quiz Battle, matchmaking and leaderboards.</p>
+<input aria-label="Room code" placeholder="Room code" disabled style="width:100%;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--ink);margin-bottom:10px"><button class="pill" disabled>Join room</button></div></div></section>
+
+<section class="view" id="watch"><h2>Watch Together</h2><p class="sub">Official YouTube embeds.</p>
+<div class="cbox"><input type="text" id="yu" placeholder="Paste a YouTube link" aria-label="YouTube link"><button class="pill" id="yb">Load</button></div><div id="yp" style="margin-top:16px"></div>
+<p class="note">Synced playback with friends needs the realtime backend.</p></section>
+
+<section class="view" id="ai"><div class="orb" aria-hidden="true"></div><h2><span class="grad">VYBORA AI</span></h2><p class="sub">One intelligence across chats, games and your workspace.</p>
+<div class="chips" id="modes" role="group" aria-label="AI mode"></div>
+<div id="log" aria-live="polite"></div>
+<div class="chips" id="sug"></div>
+<div id="att" class="sub"></div>
+<div class="cbox"><label class="ib" style="cursor:pointer" aria-label="Attach file"><svg class="i"><use href="#clip"/></svg><input type="file" id="fi" hidden></label><button class="ib" id="mc" aria-label="Voice input"><svg class="i"><use href="#mic"/></svg></button><input type="text" id="q" placeholder="Ask anything" aria-label="Message VYBORA AI"><button class="pill" id="send" aria-label="Send"><svg class="i"><use href="#up"/></svg></button></div></section>
+
+<section class="view" id="settings"><h2>Settings</h2><p class="sub">Appearance and feature status.</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap"><button class="pill g" id="th2">Light/dark</button><button class="pill g" id="rm2">Reduced motion</button></div>
+<div class="sec" style="margin-top:22px"><table id="stt"></table></div></section>
+</main></div></div><div class="toast" id="toast" role="status"></div>
+<div id="authGate" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+ <div class="auth-card">
+  <button id="authClose" type="button">Close</button>
+  <div class="logo" style="padding:0 0 18px;color:#fff"><svg><use href="#lg"/></svg>VYBORA</div>
+  <h2 id="authTitle">Your account. Your universe.</h2>
+  <p id="authIntro">Create an account or sign in to continue.</p>
+  <form id="authForm">
+   <div id="usernameWrap"><label for="authUsername">Username</label><input id="authUsername" minlength="3" maxlength="24" autocomplete="username" placeholder="e.g. skywalker" required></div>
+   <div id="displayWrap"><label for="authDisplay">Display name</label><input id="authDisplay" maxlength="40" placeholder="Your display name"></div>
+   <label for="authEmail">Email</label><input id="authEmail" type="email" autocomplete="email" required placeholder="you@example.com">
+   <label for="authPassword">Password</label><input id="authPassword" type="password" minlength="8" autocomplete="current-password" required placeholder="At least 8 characters">
+   <div class="auth-actions"><button class="pill" id="authSubmit" type="submit">Create account</button><button class="pill g" id="authSwitch" type="button">I already have an account</button></div>
+  </form>
+  <div id="authStatus" aria-live="polite"></div>
+  <p class="auth-small">Use an email you can access. If email confirmation is enabled, confirm your address before signing in.</p>
  </div>
-</main>
-<aside class="rightcol">
- <div class="panel rightpanel"><h3>Your little corner</h3><div class="profile-mini"><div class="avatar">D</div><div><strong>Darshil</strong><small><span class="online-dot"></span>Ready to connect</small></div></div><div class="progress"><span id="sideXp"></span></div><div class="statrow"><span id="sideLevel">Level 1 · Explorer</span><span id="sideXPText">25 XP</span></div><button class="softbtn" style="width:100%;margin-top:13px" data-goto="achievements">View achievements ↗</button></div>
- <div class="panel rightpanel"><h3>Quick activity</h3><div class="activity"><div class="activityicon">🧠</div><div><strong>Quiz Battle</strong><p>Five questions. Ready?</p></div></div><div class="activity"><div class="activityicon">🎁</div><div><strong>Mystery gift</strong><p>A little surprise goes a long way.</p></div></div><div class="activity"><div class="activityicon">✧</div><div><strong>AI conversation starter</strong><p>“What's a hill you'll die on?”</p></div></div></div>
- <div class="panel rightpanel"><h3>Your atmosphere</h3><div class="theme-preview" id="sideThemePreview"></div><div class="theme-row"><button class="theme-dot selected" style="background:linear-gradient(135deg,#356b51,#101a27)" data-theme="forest" aria-label="Forest theme"></button><button class="theme-dot" style="background:linear-gradient(135deg,#2b7897,#101a27)" data-theme="ocean" aria-label="Ocean theme"></button><button class="theme-dot" style="background:linear-gradient(135deg,#8c73db,#153d43)" data-theme="aurora" aria-label="Aurora theme"></button><button class="theme-dot" style="background:linear-gradient(135deg,#d58a79,#3c2543)" data-theme="sunset" aria-label="Sunset theme"></button></div><button class="softbtn" style="width:100%;margin-top:12px" data-goto="themes">Customize world ↗</button></div>
- </aside>
 </div>
-<nav class="mobile-nav"><button data-goto="home" class="active">⌂<br>Home</button><button data-goto="messages">◌<br>Chats</button><button data-goto="arcade">▣<br>Games</button><button data-goto="gifts">♧<br>Gifts</button><button data-goto="ai">✧<br>AI</button></nav>
-</div>
-<div class="modalback" id="modalBack"><div class="modal"><div class="modalhead"><h2 id="modalTitle">Let's do this</h2><button class="close" id="modalClose">✕</button></div><div id="modalBody"></div><div class="modalactions" id="modalActions"></div></div></div>
-<div class="toast" id="toast"></div><div class="confetti" id="confetti"></div>
+
+
 <script>
-const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-const titles={home:["A LITTLE SPACE TO CONNECT","Your world, together.","Good conversations. Great games. Unexpected little surprises."],messages:["REAL-TIME FEEL, DEMO DATA","Messages","Your conversations, all in one peaceful place."],arcade:["PLAY SOMETHING GOOD","The arcade","Choose a game and let the friendly rivalry begin."],challenges:["FRIENDLY COMPETITION","Make it a challenge.","Invite someone, play a round, and settle the score."],gifts:["A LITTLE SURPRISE","Gift studio","Digital gifts, personal notes, and a little magic."],ai:["YOUR CREATIVE SIDEKICK","Meet Vybora AI.","Ideas, jokes, riddles, and challenges — right in the flow."],communities:["FIND YOUR PEOPLE","Communities","Shared interests make the world feel smaller."],achievements:["EVERY LITTLE WIN","Your achievements","Collect badges as you connect, play, and explore."],themes:["SET THE MOOD","Theme studio","Choose a digital world that feels like you."]};
-let currentView='home',activeChat='Maya',xp=25,badges=new Set(),giftCount=0,challengeCount=0,soundOn=true,selectedGift=null;
-const chatMessages={
-'Maya':[{from:'Maya',text:'Okay, important question: are you actually good at quizzes or just confidently wrong? 😂',time:'10:02'},{from:'Darshil',text:'There is only one way to find out 😎',time:'10:03',mine:true},{from:'Maya',text:'Fine. Loser sends the winner a mystery gift. Deal? 🎁',time:'10:03'},{from:'Vybora AI',text:'Oh, this is getting interesting. I can set up a quiz battle with a mix of brain-teasers and delightfully unfair trick questions. 😏',time:'AI suggestion · sample',ai:true}],
-'Aarav':[{from:'Aarav',text:'That chess move was wild. Rematch later?',time:'9:42'},{from:'Darshil',text:'Absolutely. I need my redemption arc.',time:'9:43',mine:true}],
-'Zoya':[{from:'Zoya',text:'I found the cutest little digital gift idea 🎁',time:'9:20'},{from:'Darshil',text:'Now I’m curious 👀',time:'9:21',mine:true}],
-'Ishaan':[{from:'Ishaan',text:'Send me the quiz when you get a chance!',time:'Yesterday'}],
-'Riya':[{from:'Riya',text:'This nature theme is actually so peaceful 🌿',time:'Yesterday'}],
-'Vybora AI':[{from:'Vybora AI',text:'Hey there. I can help with jokes, riddles, quiz ideas, translations, or a clever reply. What are we making today?',time:'AI · sample',ai:true}]
-};
-function toast(msg){let t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove('show'),2600)}
-function confetti(){let c=$('#confetti');c.innerHTML='';for(let i=0;i<70;i++){let e=document.createElement('i');e.style.setProperty('--x',Math.random()*100+'%');e.style.setProperty('--d',Math.random()*.65+'s');e.style.setProperty('--h',Math.floor(Math.random()*360));c.appendChild(e)}setTimeout(()=>c.innerHTML='',3100)}
-function sound(){if(!soundOn)return;try{let ctx=new(window.AudioContext||window.webkitAudioContext)(),o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.frequency.value=660;g.gain.value=.025;o.start();o.stop(ctx.currentTime+.07);o.onended=()=>ctx.close()}catch(e){}}
-function navigate(view){if(!titles[view])return;currentView=view;$$('.view').forEach(v=>v.classList.toggle('active',v.id==='view-'+view));$$('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));$$('.mobile-nav button').forEach(b=>b.classList.toggle('active',b.dataset.goto===view));$('#eyebrow').textContent=titles[view][0];$('#pageTitle').textContent=titles[view][1];$('#pageSubtitle').textContent=titles[view][2];$('#newChat').style.display=view==='messages'?'none':'inline-block';$('#quickChallenge').style.display=['messages','arcade','challenges'].includes(view)?'inline-block':'none';if(view==='messages')renderChat();window.scrollTo({top:0,behavior:'smooth'})}
-$$('[data-view]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.view)));$$('[data-goto]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.goto)));
-function renderChat(){if(window.VYBORA_CLOUD && window.VYBORA_CLOUD.enabled){window.VYBORA_CLOUD.renderCurrentChat();return}let box=$('#messages');box.innerHTML='<div class="daydivider">TODAY · A LITTLE GOOD ENERGY</div>';let list=chatMessages[activeChat]||[];list.forEach(m=>appendMessage(m.from,m.text,m.time,m.mine,m.ai,false));box.scrollTop=box.scrollHeight;$('#activeName').textContent=activeChat;$('#activeAvatar').textContent=activeChat==='Vybora AI'?'✧':activeChat[0];$('#activeStatus').innerHTML=activeChat==='Vybora AI'?'✧ AI assistant · sample mode':'<span class="online-dot"></span>Active status · demo conversation';$('#messageInput').placeholder='Message '+activeChat+'…  (try @Vybora tell us a joke)';$$('.chatrow').forEach(r=>r.classList.toggle('active',r.dataset.chat===activeChat))}
-
-function appendMessage(from, text, time, mine = false, ai = false, save = true, username = '', avatarText = '') {
-  const box = $('#messages');
-  if (!box) return;
-
-  const row = document.createElement('div');
-  row.className = 'msg' + (mine ? ' mine' : '') + (ai ? ' ai-msg' : '');
-
-  const av = document.createElement('div');
-  av.className = 'avatar';
-  av.textContent = from === 'Vybora AI' ? '✧' : (avatarText || from?.trim()?.charAt(0) || 'V');
-
-  if (from === 'Vybora AI') {
-    av.style.background = 'linear-gradient(135deg,#b4a4ff,#82e8c6)';
-  } else if (from === 'Maya') {
-    av.style.background = 'linear-gradient(135deg,#f9c6a4,#f28db8)';
-  }
-
-  const bubble = document.createElement('div');
-  bubble.className = 'bubble';
-
-  const header = document.createElement('div');
-  header.className = 'msg-profile';
-
-  const sender = document.createElement('strong');
-  sender.textContent = from || 'VYBORA player';
-  header.appendChild(sender);
-
-  if (username) {
-    const handle = document.createElement('span');
-    handle.className = 'msg-username';
-    handle.textContent = '@' + username.replace(/^@/, '');
-    header.appendChild(handle);
-  }
-
-  bubble.appendChild(header);
-
-  if (ai) {
-    const aiLabel = document.createElement('span');
-    aiLabel.className = 'ai-label';
-    aiLabel.textContent = '✧ AI';
-    header.appendChild(aiLabel);
-  }
-
-  const body = document.createElement('div');
-  body.className = 'msg-text';
-  body.textContent = text || '';
-  bubble.appendChild(body);
-
-  const tm = document.createElement('span');
-  tm.className = 'msgtime';
-  tm.textContent = time || new Date().toLocaleTimeString([], {
-    hour: '2-digit',
-    minute: '2-digit'
-  }) + (mine ? ' · ✓✓' : '');
-
-  bubble.appendChild(tm);
-  row.append(av, bubble);
-  box.appendChild(row);
-  box.scrollTop = box.scrollHeight;
-
-  if (save && chatMessages[activeChat]) {
-    chatMessages[activeChat].push({ from, text, time: tm.textContent, mine, ai });
-  }
-
-  if (save) sound();
-}
-
-function sendMessage(text){text=(text??$('#messageInput').value).trim();if(!text)return;if(window.VYBORA_CLOUD && window.VYBORA_CLOUD.enabled){window.VYBORA_CLOUD.sendMessage(text);return}$('#messageInput').value='';if(!chatMessages[activeChat])chatMessages[activeChat]=[];appendMessage('Darshil',text,'',true,false,true);if(/@vybora/i.test(text)){let command=text.replace(/@vybora/i,'').trim();setTimeout(()=>{let reply=aiReply(command);appendMessage('Vybora AI',reply,'AI · demo',false,true,true);gainXP(2)},550)}}
-$('#sendBtn').onclick=()=>sendMessage();$('#messageInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage()}});
-$$('[data-suggest]').forEach(b=>b.onclick=()=>{ $('#messageInput').value=b.dataset.suggest;sendMessage()});
-function selectChat(name){activeChat=name;if(!chatMessages[name])chatMessages[name]=[{from:name,text:'Hey! This is a demo conversation. Send a message to try the interface ✨',time:'now'}];navigate('messages');renderChat()}
-$$('[data-chat]').forEach(b=>b.addEventListener('click',()=>selectChat(b.dataset.chat)));
-$('#chatSearch').addEventListener('input',e=>{$$('.chatrow').forEach(r=>r.style.display=r.dataset.chat.toLowerCase().includes(e.target.value.toLowerCase())?'flex':'none')});
-function openModal(title,body,actions){$('#modalTitle').textContent=title;$('#modalBody').innerHTML=body;$('#modalActions').innerHTML=actions||'<button class="primary" data-close>Got it</button>';$('#modalBack').classList.add('open');$$('[data-close]').forEach(b=>b.onclick=closeModal)}
-function closeModal(){$('#modalBack').classList.remove('open')}$('#modalClose').onclick=closeModal;$('#modalBack').addEventListener('click',e=>{if(e.target.id==='modalBack')closeModal()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
-$('#newChat').onclick=()=>openModal('Start a new chat','<p>Choose a demo conversation to open.</p><label class="field">Friend<select id="newFriend"><option>Maya</option><option>Aarav</option><option>Zoya</option><option>Ishaan</option><option>Riya</option><option>Vybora AI</option></select></label>','<button class="softbtn" data-close>Cancel</button><button class="primary" id="createChat">Open chat ↗</button>');$('#newChat').addEventListener('click',()=>setTimeout(()=>{let b=$('#createChat');if(b)b.onclick=()=>{let n=$('#newFriend').value;closeModal();selectChat(n)}},0));
-$('#chatAi').onclick=()=>{navigate('messages');$('#messageInput').value='@Vybora ';$('#messageInput').focus();toast('Try: @Vybora tell us a joke')};$('#chatChallenge').onclick=()=>challengeModal();$('#composerChallenge').onclick=()=>challengeModal();$('#quickChallenge').onclick=()=>challengeModal();$('#startChallenge').onclick=()=>challengeModal();$('#chatGift').onclick=()=>navigate('gifts');$('#composerGift').onclick=()=>navigate('gifts');$('#chatMore').onclick=()=>openModal('Conversation details','<p><strong>'+activeChat+'</strong></p><p>Shared media · Pinned messages · Notifications</p><p class="muted">These detail controls are visual in this demo.</p>');$('#emojiBtn').onclick=()=>{let e=[' 😊',' 😂',' ✨',' 🌿',' 🎮',' 💜',' 👀',' 🎁'];$('#messageInput').value+=[...e][Math.floor(Math.random()*e.length)];$('#messageInput').focus()};$('#attachBtn').onclick=()=>$('#fileInput').click();$('#fileInput').onchange=e=>{let f=e.target.files[0];if(f){sendMessage('📎 Attached: '+f.name+' (local demo preview only)');toast('Attachment selected. Upload storage needs backend setup.')}};
-function challengeModal(){openModal('Challenge a friend ⚡','<p>Choose a game to start a demo challenge with <strong>'+activeChat+'</strong>.</p><label class="field">Choose your game<select id="challengeGame"><option value="quiz">Quiz Battle</option><option value="ttt">Tic-Tac-Toe</option><option value="riddle">Riddle Arena</option><option value="reaction">Reaction Rush</option><option value="memory">Memory Match</option><option value="rps">Rock Paper Scissors</option></select></label><label class="field">Message (optional)<input id="challengeNote" value="Think you can beat me? 😏"></label>','<button class="softbtn" data-close>Cancel</button><button class="primary" id="sendChallenge">Send challenge ↗</button>');setTimeout(()=>{$('#sendChallenge').onclick=()=>{let g=$('#challengeGame').value,n=$('#challengeNote').value;closeModal();challengeCount++;gainXP(10);$('#challengeBadge').textContent='Challenge started';appendChallengeCard(g,n);navigate('messages');toast('Challenge card added to this demo chat!');launchGame(g)}},0)}
-function appendChallengeCard(g,n){let label={quiz:'Quiz Battle',ttt:'Tic-Tac-Toe',riddle:'Riddle Arena',reaction:'Reaction Rush',memory:'Memory Match',rps:'Rock Paper Scissors'}[g];appendMessage('Darshil','⚡ CHALLENGE INVITATION: '+label+'\\n'+n+'\\nAccept by opening the game arcade!','challenge card',true,false,true)}
-function aiReply(q){q=q.toLowerCase();if(q.includes('joke'))return'Why did the scarecrow win an award? Because he was outstanding in his field. 🌾😂';if(q.includes('riddle'))return'Here’s one: I have cities but no houses, forests but no trees, and rivers but no water. What am I?\\n\\nAnswer: a map. 🗺️';if(q.includes('quiz'))return'Quick quiz time! Question 1: Which planet has the most prominent ring system? A) Mars  B) Saturn  C) Venus  D) Mercury.\\n\\nCorrect answer: Saturn. Want a full quiz? Open Quiz Battle in the Arcade!';if(q.includes('challenge'))return'Challenge idea: a five-question speed quiz. Every wrong answer means the winner gets to pick the next game. Keep it friendly, keep the bragging rights. ⚡';if(q.includes('translate'))return'I can help translate text, but this offline prototype does not have a translation API connected yet. Add an AI provider to enable live translations.';if(q.includes('reply'))return'Try something playful: “Bold of you to assume I haven’t been training for this exact moment. 😌”';if(q.includes('summar'))return'This is a sample conversation, so there is not much to summarize yet. With a connected AI backend, I can summarize authorized messages in context.';return'Fun idea: turn that into a mini challenge! Pick Quiz Battle or Riddle Arena in the Arcade, then send the invitation straight into this chat. ✨ (Demo assistant response.)'}
-$('#aiSend').onclick=askAI;$('#aiInput').addEventListener('keydown',e=>{if(e.key==='Enter')askAI()});function askAI(text){text=(text||$('#aiInput').value).trim();if(!text)return;$('#aiInput').value='';let tr=$('#aiTranscript'),p=document.createElement('p');p.innerHTML='<strong>You</strong><br>';p.append(document.createTextNode(text));tr.append(p);let thinking=document.createElement('p');thinking.style.color='#b8aaff';thinking.textContent='✧ Vybora is thinking…';tr.append(thinking);setTimeout(()=>{thinking.innerHTML='<strong style="color:#cfc4ff">Vybora AI</strong><br>'+aiReply(text).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');gainXP(2)},500)}
-$$('[data-ai]').forEach(b=>b.onclick=()=>askAI(b.dataset.ai));
-$$('[data-game]').forEach(b=>b.addEventListener('click',()=>launchGame(b.dataset.game)));
-let tttBoard=Array(9).fill(''),tttTurn='X',tttDone=false,quizIndex=0,quizScore=0,quizQuestions=[
-{q:'Which planet is known as the Red Planet?',a:['Venus','Mars','Jupiter','Mercury'],c:1},
-{q:'What is the largest ocean on Earth?',a:['Atlantic','Indian','Arctic','Pacific'],c:3},
-{q:'Which animal is famous for its black-and-white stripes?',a:['Tiger','Zebra','Panda','Skunk'],c:1},
-{q:'How many sides does a hexagon have?',a:['Five','Six','Seven','Eight'],c:1},
-{q:'Which gas do plants absorb from the atmosphere?',a:['Oxygen','Nitrogen','Carbon dioxide','Helium'],c:2},
-{q:'What is the closest star to Earth?',a:['Sirius','The Sun','Polaris','Vega'],c:1}];
-function launchGame(g){navigate('arcade');let a=$('#gameArena');a.innerHTML='';if(g==='ttt'){tttBoard=Array(9).fill('');tttTurn='X';tttDone=false;a.innerHTML='<div class="gamearena"><div class="arenahead"><div><div class="eyebrow">CLASSIC DUEL</div><h3>Tic-Tac-Toe</h3></div><button class="softbtn" id="restartGame">↻ Restart</button></div><div class="scoreline"><span>Player 1 · X</span><span>Player 2 · O</span></div><div class="board ttt" id="tttBoard">'+tttBoard.map((_,i)=>'<button class="cell" data-cell="'+i+'"></button>').join('')+'</div><div class="gamefeedback" id="gameFeedback">X goes first</div><p class="muted small" style="text-align:center">Local two-player demo · take turns on this device</p></div>';$$('[data-cell]').forEach(b=>b.onclick=()=>tttMove(+b.dataset.cell));$('#restartGame').onclick=()=>launchGame('ttt');gainXP(3)}
-else if(g==='quiz'){quizIndex=0;quizScore=0;renderQuiz();gainXP(3)}
-else if(g==='riddle'){a.innerHTML='<div class="gamearena"><div class="eyebrow">RIDDLE ARENA</div><h3>One for your brain 🧠</h3><div class="quizquestion">The more you take, the more you leave behind. What am I?</div><label class="field">Your answer<input id="riddleAnswer" placeholder="Think about it…"></label><div id="riddleFeedback" class="gamefeedback"></div><button class="primary" id="checkRiddle">Lock in answer</button> <button class="softbtn" id="riddleHint">Hint</button></div>';$('#checkRiddle').onclick=()=>{let v=$('#riddleAnswer').value.toLowerCase();if(v.includes('footstep')||v.includes('footstep')){$('#riddleFeedback').textContent='Correct! Footsteps 👣';gainXP(15);confetti()}else $('#riddleFeedback').textContent='Not quite — try again!';};$('#riddleHint').onclick=()=>toast('Hint: you make them when you walk.');}
-else if(g==='rps'){let rounds=0,score=0;a.innerHTML='<div class="gamearena"><div class="eyebrow">BEST OF THREE</div><h3>Rock Paper Scissors</h3><p class="muted">Pick your move. The computer is a practice opponent.</p><div class="grid2"><button class="featurecard" data-rps="rock"><div class="featureicon">✊</div><h4>Rock</h4></button><button class="featurecard" data-rps="paper"><div class="featureicon">✋</div><h4>Paper</h4></button><button class="featurecard" data-rps="scissors"><div class="featureicon">✌️</div><h4>Scissors</h4></button><div class="featurecard"><h4 id="rpsScore">Round 0 / 3</h4><p id="rpsFeedback">Make your move!</p></div></div><button class="softbtn" id="rpsReset">Restart match</button></div>';let play=(move)=>{if(rounds>=3)return;let choices=['rock','paper','scissors'],bot=choices[Math.floor(Math.random()*3)],res=move===bot?'Tie!':((move==='rock'&&bot==='scissors')||(move==='paper'&&bot==='rock')||(move==='scissors'&&bot==='paper'))?'You win this round!':'Practice bot wins this round.';if(res.startsWith('You win'))score++;rounds++;$('#rpsScore').textContent='Round '+rounds+' / 3 · Score '+score;$('#rpsFeedback').textContent='You: '+move+' · Bot: '+bot+' — '+res;if(rounds===3){$('#rpsFeedback').textContent+=' Match over!';if(score>=2){gainXP(10);confetti()}}};$$('[data-rps]').forEach(b=>b.onclick=()=>play(b.dataset.rps));$('#rpsReset').onclick=()=>launchGame('rps')}
-else if(g==='memory'){let vals=['🌿','🌙','🌊','🌸','⭐','🍄','🌿','🌙','🌊','🌸','⭐','🍄'].sort(()=>Math.random()-.5),open=[],matched=new Set(),moves=0;a.innerHTML='<div class="gamearena"><div class="eyebrow">MEMORY MATCH</div><h3>Find all six pairs</h3><p class="muted">Moves: <span id="memoryMoves">0</span></p><div class="board" id="memoryBoard" style="grid-template-columns:repeat(4,1fr);max-width:390px">'+vals.map((v,i)=>'<button class="cell" style="font-size:26px" data-memory="'+i+'">✦</button>').join('')+'</div><div class="gamefeedback" id="memoryFeedback">Flip two cards.</div><button class="softbtn" id="memoryReset">Restart</button></div>';let lock=false;$$('[data-memory]').forEach(b=>b.onclick=()=>{let i=+b.dataset.memory;if(lock||matched.has(i)||open.includes(i))return;b.textContent=vals[i];open.push(i);if(open.length===2){moves++;$('#memoryMoves').textContent=moves;let [x,y]=open;if(vals[x]===vals[y]){matched.add(x);matched.add(y);open=[];if(matched.size===vals.length){$('#memoryFeedback').textContent='All pairs found! Lovely memory ✨';gainXP(15);confetti()}}else{lock=true;setTimeout(()=>{[x,y].forEach(n=>$('#memoryBoard').querySelector('[data-memory="'+n+'"]').textContent='✦');open=[];lock=false},650)}}});$('#memoryReset').onclick=()=>launchGame('memory');gainXP(2)}
-else if(g==='reaction'){a.innerHTML='<div class="gamearena"><div class="eyebrow">REACTION RUSH</div><h3>Wait for green. Then tap fast.</h3><p class="muted">Press start, wait until the panel turns green, then tap it as quickly as you can.</p><button class="featurecard" id="reactionPad" style="width:100%;min-height:160px;background:#26303d"><div class="featureicon" style="margin:0 auto 10px">⚡</div><h4 id="reactionText">Ready?</h4><p id="reactionSub">Tap Start to begin</p></button><button class="primary" id="reactionStart" style="margin-top:12px">Start test</button><p id="reactionResult" class="gamefeedback"></p></div>';let ready=false,started=0,timer=null;$('#reactionStart').onclick=()=>{clearTimeout(timer);ready=false;$('#reactionPad').style.background='#7a4a36';$('#reactionText').textContent='Wait for green…';$('#reactionSub').textContent='Don’t tap too early';$('#reactionResult').textContent='';timer=setTimeout(()=>{ready=true;started=performance.now();$('#reactionPad').style.background='#175c47';$('#reactionText').textContent='TAP NOW!';$('#reactionSub').textContent='GO GO GO';},1200+Math.random()*2600)};$('#reactionPad').onclick=()=>{if(!ready){if($('#reactionText').textContent==='Wait for green…'){$('#reactionResult').textContent='Too soon! Try again.';clearTimeout(timer)}return}let ms=Math.round(performance.now()-started);ready=false;$('#reactionText').textContent=ms+' ms';$('#reactionSub').textContent='Nice reflexes.';$('#reactionResult').textContent=ms<250?'Lightning fast! ⚡':ms<400?'Quick reactions!':'Practice makes quicker.';gainXP(ms<300?12:5);if(ms<300)confetti()}}
-}
-function tttMove(i){if(tttDone||tttBoard[i])return;tttBoard[i]=tttTurn;let b=$('#tttBoard').querySelector('[data-cell="'+i+'"]');b.textContent=tttTurn;b.disabled=true;let wins=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];let w=wins.find(c=>c.every(n=>tttBoard[n]===tttTurn));if(w){tttDone=true;$('#gameFeedback').textContent=tttTurn+' wins! Well played.';w.forEach(n=>$('#tttBoard').querySelector('[data-cell="'+n+'"]').style.background='#7ce6c033');gainXP(12);confetti();return}if(tttBoard.every(Boolean)){tttDone=true;$('#gameFeedback').textContent='A draw! Rematch?';return}tttTurn=tttTurn==='X'?'O':'X';$('#gameFeedback').textContent=tttTurn+' goes next.'}
-function renderQuiz(){let a=$('#gameArena'),q=quizQuestions[quizIndex%quizQuestions.length];a.innerHTML='<div class="gamearena"><div class="arenahead"><div><div class="eyebrow">QUIZ BATTLE · QUESTION '+(quizIndex+1)+' / 5</div><h3>Show us what you know.</h3></div><div class="chip">Score: '+quizScore+'</div></div><div class="progress"><span style="width:'+((quizIndex+1)/5*100)+'%"></span></div><div class="quizquestion">'+q.q+'</div><div class="answers">'+q.a.map((x,i)=>'<button class="answer" data-answer="'+i+'">'+x+'</button>').join('')+'</div><div id="quizFeedback" class="gamefeedback" style="margin-top:13px"></div><div style="text-align:center;margin-top:12px"><button class="softbtn" id="nextQuestion" style="display:none">Next question →</button></div></div>';$$('[data-answer]').forEach(b=>b.onclick=()=>{if($$('.answer').some(x=>x.disabled))return;let correct=+b.dataset.answer===q.c;$$('.answer').forEach(x=>{x.disabled=true;if(+x.dataset.answer===q.c)x.classList.add('correct')});if(!correct)b.classList.add('wrong');else quizScore++;$('#quizFeedback').textContent=correct?'Correct! Nice one ✨':'Not quite — the answer is '+q.a[q.c]+'.';$('#nextQuestion').style.display='inline-block'});$('#nextQuestion').onclick=()=>{quizIndex++;if(quizIndex>=5){a.innerHTML='<div class="gamearena" style="text-align:center;padding:35px"><div style="font-size:54px">🏆</div><div class="eyebrow">QUIZ COMPLETE</div><h2>You scored '+quizScore+' / 5</h2><p class="muted">'+(quizScore>=4?'Outstanding brainpower!':quizScore>=2?'Solid effort. Rematch?':'The comeback story starts here.')+'</p><button class="primary" id="quizAgain">Play again</button></div>';gainXP(quizScore*5+5);if(quizScore>=4)confetti();$('#quizAgain').onclick=()=>launchGame('quiz')}else renderQuiz()}}
-function gainXP(n){xp+=n;$('#xpBar').style.width=Math.min(100,xp%100)+'%';$('#sideXp').style.width=Math.min(100,xp%100)+'%';$('#xpText').textContent=(xp%100)+' / 100 XP';$('#sideXPText').textContent=xp+' XP';let level=Math.floor(xp/100)+1;$('#levelText').textContent='Level '+level+' · '+(level>2?'Rising Star':'Curious Explorer');$('#sideLevel').textContent='Level '+level+' · Explorer';$('#badgeCount').textContent=badges.size+' badges earned';if(xp>=50&&!badges.has('curious')){badges.add('curious');toast('Achievement unlocked: Curious Explorer ✦')}}
-$$('[data-gift]').forEach(b=>b.onclick=()=>{selectedGift={name:b.dataset.gift,emoji:b.dataset.emoji};openModal('Send a little surprise '+selectedGift.emoji,'<p>Make someone’s day with a small digital gift.</p><label class="field">Send to<select id="giftRecipient"><option>Maya</option><option>Aarav</option><option>Zoya</option><option>Ishaan</option><option>Riya</option></select></label><label class="field">Personal note<textarea id="giftNote" rows="3" placeholder="A little something to make you smile…">Hope this makes you smile ✨</textarea></label><label class="field">Animation style<select id="giftStyle"><option>Magical confetti</option><option>Soft sparkle</option><option>Celebration burst</option></select></label>','<button class="softbtn" data-close>Cancel</button><button class="primary" id="sendGift">Send gift 🎁</button>');setTimeout(()=>$('#sendGift').onclick=()=>{let recipient=$('#giftRecipient').value,note=$('#giftNote').value||'A little surprise for you!';closeModal();showGift(selectedGift,recipient,note);},0)});
-function showGift(g,recipient,note){giftCount++;gainXP(12);badges.add('gift');$('#giftBadge').textContent='Unlocked ✨';let res=$('#giftResult');res.innerHTML='<div class="eyebrow">SURPRISE SENT TO '+recipient.toUpperCase()+'</div><div id="giftReveal" style="text-align:center;padding:18px"><div id="giftEmoji" style="font-size:76px;filter:drop-shadow(0 12px 22px #0007);cursor:pointer;transition:.3s">🎁</div><h3 id="giftTitle">A mystery is waiting…</h3><p id="giftNote" class="muted">'+escapeHtml(note)+'</p><button class="primary" id="openGift">Open your gift ✨</button></div>';$('#openGift').onclick=()=>{let e=$('#giftEmoji');e.textContent=g.emoji;e.classList.add('revealed');$('#giftTitle').textContent=g.name+' — a little happiness, just for you.';$('#openGift').textContent='Opened with love 💜';$('#openGift').disabled=true;confetti();sound();toast('Gift opened! Imagine that smile ✨');if(chatMessages[recipient]){let prev=activeChat;activeChat=recipient;appendMessage('Darshil','🎁 Sent you a '+g.name+': “'+note+'”','gift',true,false,true);activeChat=prev}gainXP(5)};res.scrollIntoView({behavior:'smooth',block:'nearest'})}
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function setTheme(t){let urls={forest:"url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=2200&q=85')",ocean:"url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=2200&q=85')",aurora:"url('https://images.unsplash.com/photo-1531366936337-7c912a4589a7?auto=format&fit=crop&w=2200&q=85')",sunset:"url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=2200&q=85')"};let scene=$('.scene');scene.style.setProperty('--theme-image',urls[t]);scene.style.backgroundImage='linear-gradient(90deg,#080d14bd,#080d147a),'+urls[t];scene.style.backgroundSize='cover';scene.style.backgroundPosition='center';$$('.theme-dot').forEach(b=>b.classList.toggle('selected',b.dataset.theme===t));$('#sideThemePreview').style.backgroundImage='linear-gradient(180deg,#92b8a22b,#111d25aa),'+urls[t];$('#sideThemePreview').style.backgroundSize='cover';$('#natureBadge').textContent='Theme explored';if(!badges.has('nature')){badges.add('nature');gainXP(5)}toast(t[0].toUpperCase()+t.slice(1)+' atmosphere applied 🌿')}
-$$('[data-theme]').forEach(b=>b.addEventListener('click',()=>setTheme(b.dataset.theme)));$('#themeButton').onclick=()=>navigate('themes');$('#saveTheme').onclick=()=>toast('Theme preference applied for this session. Persistent accounts need backend storage.');$('#motionToggle').onchange=e=>document.body.classList.toggle('reduced-motion',e.target.checked);$('#contrastToggle').onchange=e=>document.body.classList.toggle('high-contrast',e.target.checked);const extraStyle=document.createElement('style');extraStyle.textContent='.reduced-motion *, .reduced-motion *:before,.reduced-motion *:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}.high-contrast .panel{background:#0a1019f5;border-color:#ffffff30}.high-contrast .bubble{background:#17212d}';document.head.append(extraStyle);
-$('#soundBtn').onclick=()=>{soundOn=!soundOn;$('#soundBtn').textContent=soundOn?'🔊':'🔇';toast(soundOn?'Sound effects on':'Sound effects muted')};$('#notifBtn').onclick=()=>openModal('Your notifications','<div class="activity"><div class="activityicon">🎮</div><div><strong>Challenge ready</strong><p>Quiz Battle is waiting for you in the Arcade.</p></div></div><div class="activity"><div class="activityicon">✧</div><div><strong>Vybora AI</strong><p>Try “make us a riddle battle” in chat.</p></div></div><p class="muted">These are sample notifications in the local demo.</p>');$$('.community').forEach(b=>b.onclick=()=>{b.querySelector('h4').textContent='✓ '+b.dataset.community;b.querySelector('p').textContent='Joined locally · demo community';toast('Joined '+b.dataset.community+' (demo)')});
-setTheme('forest');renderChat();gainXP(0);
-
-// Firebase integration bridge: exposes only the UI operations needed by the cloud module.
-window.VYBORA_UI = {
-  get activeChat(){ return activeChat; },
-  setActiveChat(name){ activeChat = name; },
-renderMessage(message) {
-  appendMessage(
-    message.name || 'VYBORA player',
-    message.text || '',
-    message.time || '',
-    !!message.mine,
-    false,
-    false,
-    message.username || '',
-    message.avatarText || ''
-  );
-},
-  clearMessages(){ $('#messages').replaceChildren(); },
-  setLobbyHeader(){
-    $('#activeName').textContent = 'VYBORA Global Lobby';
-    $('#activeAvatar').textContent = '🌐';
-    $('#activeStatus').innerHTML = '<span class="online-dot"></span>Real-time shared lobby';
-    $('#messageInput').placeholder = 'Message everyone in the lobby…';
-    $$('.chatrow').forEach(r => r.classList.remove('active'));
-  }
-};
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],R=document.documentElement;
+const I=n=>`<svg class="i"><use href="#${n}"/></svg>`;
+const V=[["home","Home"],["explore","Explore"],["messages","Messages","msg"],["friends","Friends","users"],["communities","Communities","comm"],["arcade","Arcade","game"],["watch","Watch Together","play"],["ai","VYBORA AI","ai"],["settings","Settings","cog"]];
+$("#nav").innerHTML=`<div class="logo"><svg><use href="#lg"/></svg>VYBORA</div>`+V.map(v=>`<button class="n" data-go="${v[0]}">${I(v[2]||v[0])}<span>${v[1]}</span></button>`).join("");
+let tt;function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("on");clearTimeout(tt);tt=setTimeout(()=>e.classList.remove("on"),2400)}
+function go(id){if(!V.some(v=>v[0]===id))id="home";$$(".view").forEach(v=>v.classList.toggle("on",v.id===id));$$("#nav .n").forEach(b=>b.dataset.go===id?b.setAttribute("aria-current","page"):b.removeAttribute("aria-current"));$("#main").scrollTop=0;$("#menu").classList.remove("on");if(location.hash!=="#"+id)location.hash=id}
+document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g)go(g.dataset.go);const t=e.target.closest("[data-t]");if(t)toast(t.dataset.t);if(!e.target.closest("#menu,#av"))$("#menu").classList.remove("on")});
+addEventListener("hashchange",()=>go(location.hash.slice(1)));
+function mo(){const on=!R.classList.contains("reduce");R.classList.toggle("reduce",on);toast(on?"Motion reduced":"Motion on")}
+function th(){const d=R.dataset.theme?R.dataset.theme=="dark":matchMedia("(prefers-color-scheme:dark)").matches;R.dataset.theme=d?"light":"dark"}
+["#th","#th2"].forEach(s=>$(s).onclick=th);["#rm","#rm2"].forEach(s=>$(s).onclick=mo);
+$("#av").onclick=()=>$("#menu").classList.toggle("on");
+$("#bl").onclick=()=>toast("No notifications yet");$("#ais").onclick=()=>go("ai");
+$("#cr").onclick=()=>{go("home");$("#pt").focus()};
+$("#gs").addEventListener("keydown",e=>{if(e.key==="Enter"){go("explore");toast("Search needs the backend. Nothing indexed yet.")}});
+/* panels needing backend */
+function bk(id,t,b){$(id).innerHTML=`<div class="sec"><strong>${t}</strong><span class="tag">Needs backend</span><p class="sub" style="margin-top:6px">${b}</p><button class="pill" disabled>Not connected</button></div>`}
+bk("#ex","Discovery","People, public communities and trending posts appear once accounts and a database are connected.");
+bk("#fr","Friend graph","Requests, accepts and online presence need authentication and realtime.");
+bk("#cm","Communities","Channels, roles and events need accounts with Row Level Security.");
+/* landing */
+$("#enter").onclick=()=>{$("#land").classList.add("out");setTimeout(()=>$("#land").remove(),700);stop=1};
+const mg=$("#enter");mg.onmousemove=e=>{const r=mg.getBoundingClientRect();mg.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.2}px,${(e.clientY-r.top-r.height/2)*.3}px)`};mg.onmouseleave=()=>mg.style.transform="";
+let stop=0;const cv=$("#cv"),cx=cv.getContext("2d");let P=[];
+function rz(){cv.width=innerWidth;cv.height=innerHeight}rz();addEventListener("resize",rz);
+for(let i=0;i<55;i++)P.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*2+.6,v:Math.random()*.3+.1,a:Math.random()*.5+.2});
+function fr(){if(stop)return;cx.clearRect(0,0,cv.width,cv.height);P.forEach(p=>{p.y-=p.v;if(p.y<-5){p.y=cv.height+5;p.x=Math.random()*cv.width}cx.fillStyle=`rgba(200,185,255,${p.a})`;cx.beginPath();cx.arc(p.x,p.y,p.r,0,7);cx.fill()});requestAnimationFrame(fr)}
+if(matchMedia("(prefers-reduced-motion:reduce)").matches)R.classList.add("reduce");else fr();
+/* feed */
+let posts=[];try{posts=JSON.parse(localStorage.getItem("vy_p2")||"[]")}catch(e){}
+function draw(){const f=$("#feed");f.innerHTML="";if(!posts.length){f.innerHTML=`<p class="sub">Your feed is quiet. Post something and it shows up here.</p>`;return}posts.forEach((p,i)=>{const d=document.createElement("div");d.className="post";d.innerHTML=`<small class="sub"></small><p></p><button class="like" aria-label="Like">${I("ht")}<span></span></button>`;d.querySelector("small").textContent=new Date(p.d).toLocaleString();d.querySelector("p").textContent=p.t;const l=d.querySelector(".like");l.classList.toggle("on",!!p.l);l.querySelector("span").textContent=p.l?1:0;l.onclick=()=>{p.l=p.l?0:1;sv();draw()};f.append(d)})}
+function sv(){try{localStorage.setItem("vy_p2",JSON.stringify(posts.slice(0,50)))}catch(e){}}
+$("#pb").onclick=()=>{const v=$("#pt").value.trim();if(!v)return toast("Write something first");posts.unshift({t:v,d:Date.now()});sv();$("#pt").value="";draw()};
+$("#feed").innerHTML=`<div class="sk" style="width:30%"></div><div class="sk"></div><div class="sk" style="width:70%"></div>`;setTimeout(draw,600);
+/* AI */
+const M=["Ask Anything","Think","Research","Study","Code","Create","Write","Analyze","Translate","Plan","Games","Voice"];let md=0;
+$("#modes").innerHTML=M.map((m,i)=>`<button class="chip" aria-pressed="${!i}" data-m="${i}">${m}</button>`).join("");
+$("#modes").onclick=e=>{const b=e.target.closest("[data-m]");if(!b)return;md=+b.dataset.m;$$("#modes .chip").forEach(c=>c.setAttribute("aria-pressed",c===b))};
+$("#sug").innerHTML=["Summarize a PDF","Make a quiz","Plan a group trip"].map(s=>`<button class="chip">${s}</button>`).join("");
+$("#sug").onclick=e=>{if(e.target.classList.contains("chip")){$("#q").value=e.target.textContent;$("#q").focus()}};
+$("#fi").onchange=e=>{const f=e.target.files[0];$("#att").textContent=f?`Attached: ${f.name} (${Math.round(f.size/1024)} KB). Analysis needs the AI gateway.`:""};
+$("#mc").onclick=()=>toast("Voice needs microphone permission and the speech backend");
+function snd(){const q=$("#q").value.trim();if(!q)return;const u=document.createElement("div");u.className="bub me";u.textContent=q;const n=document.createElement("div");n.className="note";n.textContent=`AI gateway not connected (${M[md]} mode). Add a server-side model key to get real answers. No placeholder replies are shown.`;$("#log").append(u,n);$("#q").value=""}
+$("#send").onclick=snd;$("#q").addEventListener("keydown",e=>{if(e.key==="Enter")snd()});
+/* ttt */
+let B,T,W;const L=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+function dt(){const g=$("#ttt");g.innerHTML="";B.forEach((c,i)=>{const b=document.createElement("button");b.textContent=c;b.setAttribute("aria-label","Cell "+(i+1)+(c?" "+c:""));b.onclick=()=>{if(B[i]||W)return;B[i]=T;if(L.some(l=>l.every(k=>B[k]===T))){W=1;$("#tst").textContent=T+" wins"}else if(B.every(Boolean)){W=1;$("#tst").textContent="Draw"}else{T=T=="X"?"O":"X";$("#tst").textContent=T+" to move"}dt()};g.append(b)})}
+function rs(){B=Array(9).fill("");T="X";W=0;$("#tst").textContent="X to move";dt()}$("#trs").onclick=rs;rs();
+/* watch */
+$("#yb").onclick=()=>{const m=$("#yu").value.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/),p=$("#yp");p.innerHTML="";if(!m)return toast("Not a valid YouTube link");const f=document.createElement("iframe");f.src="https://www.youtube-nocookie.com/embed/"+m[1];f.title="YouTube player";f.allowFullscreen=true;f.style.cssText="width:100%;aspect-ratio:16/9;border:0;border-radius:18px";const a=document.createElement("a");a.href="https://www.youtube.com/watch?v="+m[1];a.target="_blank";a.rel="noopener";a.textContent="Open on YouTube if the player does not load";a.style.cssText="display:block;margin-top:8px;color:var(--lav)";p.append(f,a)};
+/* status */
+$("#stt").innerHTML=[["Design system, themes, reduced motion","Done"],["Landing, shell, navigation","Done"],["Feed composer, likes (device only)","Preview"],["Tic-tac-toe, YouTube embed","Done"],["Accounts, friends, messaging, calls","Backend"],["AI, research, voice, image generation","Provider key"],["Chess, Ludo, Quiz Battle, communities","Backend"]].map(r=>`<tr><td>${r[0]}</td><td><span class="tag ${r[1]=="Done"?"ok":""}">${r[1]}</span></td></tr>`).join("");
+go(location.hash.slice(1)||"home");
 </script>
 
-<!-- VYBORA Supabase account + shared chat connection. Add your project URL and publishable key below. -->
-<style>
-#vyboraCloudBar{position:relative;z-index:1000;padding:14px 18px;background:#101522;color:#f5f3ff;border-bottom:1px solid #554d78;font:14px/1.45 Arial,sans-serif}
-#vyboraCloudBar .vcloud-wrap{max-width:1440px;margin:auto}
-#vyboraCloudBar .vcloud-title{font-size:17px;font-weight:800;letter-spacing:.08em}
-#vyboraCloudBar .vcloud-sub{color:#c3badf;margin-left:9px}
-#vyboraCloudBar .vcloud-controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-#vyboraCloudBar input{max-width:220px;min-width:145px;padding:10px 11px;border:1px solid #625b7d;border-radius:9px;background:#20283a;color:white}
-#vyboraCloudBar button{padding:10px 13px;border:1px solid #8173b9;border-radius:9px;background:#7961ce;color:white;font-weight:700;cursor:pointer}
-#vyboraCloudBar button.secondary{background:#252d40;border-color:#4b5266}
-#vyboraCloudBar [hidden]{display:none!important}
-#vAuthStatus{margin:9px 0 0;color:#d8d2ee;font-size:13px}
- 
-.chatrow {
-  cursor: pointer;
-  transition: background .2s ease, transform .2s ease;
-}
+<!-- Supabase connection -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-.chatrow:hover {
-  background: rgba(180, 164, 255, .09);
-}
+<script>
+  const SUPABASE_URL =
+    "https://acrdaffyimqtyvkucpea.supabase.co";
 
-.chatrow.active {
-  background: rgba(180, 164, 255, .15);
-}
+  const SUPABASE_KEY =
+    "sb_publishable_BfravdUPHMF9ggwr5L7tuw_PN2AbvGv";
 
-.chatmeta {
-  min-width: 0;
-  flex: 1;
-}
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
-.chatmeta p {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+  console.log("VYBORA Supabase client initialized!");
+</script>
 
-.chatstamp {
-  flex-shrink: 0;
-}
 
-</style>
-<section id="vyboraCloudBar" aria-label="VYBORA online account">
- <div class="vcloud-wrap">
-  <span class="vcloud-title">VYBORA ☁</span><span class="vcloud-sub">online account &amp; live chat</span>
-  <div class="vcloud-controls">
-   <input id="vName" placeholder="Display name" maxlength="30" autocomplete="nickname">
-   <input id="vEmail" type="email" placeholder="Email address" autocomplete="email">
-   <input id="vPassword" type="password" placeholder="Password (6+ characters)" autocomplete="current-password">
-   <button id="vSignup" type="button">Create account</button>
-   <button id="vLogin" type="button">Sign in</button>
-   <button id="vLogout" class="secondary" type="button" hidden>Sign out</button>
-  </div>
-  <p id="vAuthStatus" aria-live="polite">Setup needed: add your Supabase project URL and publishable key in this file.</p>
- </div>
-</section>
- 
-<section id="vyboraSocial" aria-label="VYBORA friends and private messages">
-  <h2>People &amp; private messages</h2>
-
-  <div class="v-social-profile">
-    <input id="vsUsername" maxlength="20"
-      placeholder="Your username (e.g. darshil_23)">
-    <input id="vsDisplayName" maxlength="30"
-      placeholder="Your display name">
-    <input id="vsBio" maxlength="160"
-      placeholder="A little about you (optional)">
-    <button id="vsSaveProfile" type="button">Save profile</button>
-  </div>
-
-  <hr>
-
-  <h3>Find people</h3>
-  <input id="vsSearch" maxlength="30"
-    placeholder="Search usernames or display names">
-  <button id="vsSearchButton" type="button">Search</button>
-  <div id="vsSearchResults" aria-live="polite"></div>
-
-  <h3>Friend requests</h3>
-  <div id="vsRequests" aria-live="polite"></div>
-
-  <h3>Your friends</h3>
-  <div id="vsFriends" aria-live="polite"></div>
-
-  <section id="vsPrivateChat" hidden>
-    <h3 id="vsChatTitle">Private conversation</h3>
-    <div id="vsPrivateMessages"
-      style="height:280px;overflow-y:auto;padding:12px;border:1px solid #555;border-radius:12px"
-      aria-live="polite"></div>
-    <form id="vsSendForm">
-      <input id="vsMessageInput" maxlength="2000"
-        placeholder="Write a private message…" required>
-      <button type="submit">Send</button>
-    </form>
-    <button id="vsCloseChat" type="button">Close conversation</button>
-  </section>
-
-  <p id="vsStatus" role="status" aria-live="polite"></p>
-</section>
-
-<script type="module">
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-
-const SUPABASE_URL = 'https://rkdbdxocclwiwoobupvd.supabase.co';
-const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_3Hh42OejAF7fYE65ky5xqQ_0JsReg55';
-const $v = (s) => document.querySelector(s);
-const status = (text) => { const el = $v('#vAuthStatus'); if (el) el.textContent = text; };
-const configured = /^https:\/\/[a-zA-Z0-9-]+\.supabase\.co$/.test(SUPABASE_URL)
-  && SUPABASE_PUBLISHABLE_KEY.startsWith('sb_publishable_');
-
-window.VYBORA_CLOUD = { enabled: false };
-
-if (!configured) {
-  status('Almost ready! Replace SUPABASE_URL and PASTE_YOUR_SB_PUBLISHABLE_KEY in this file. Your original demo works until setup is complete.');
-} else {
-  try {
-    const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
-    let currentUser = null;
-    let channel = null;
-    let loadingMessages = false;
-    window.VYBORA_CLOUD.enabled = true;
-
-    function stopLiveChat() {
-      if (channel) supabase.removeChannel(channel);
-      channel = null;
+<script>
+/* VYBORA account interface */
+(() => {
+ const gate=document.getElementById("authGate"), form=document.getElementById("authForm");
+ const status=document.getElementById("authStatus"), submit=document.getElementById("authSubmit");
+ const usernameWrap=document.getElementById("usernameWrap"), displayWrap=document.getElementById("displayWrap");
+ const switchBtn=document.getElementById("authSwitch"), title=document.getElementById("authTitle"), intro=document.getElementById("authIntro");
+ let mode="signup", currentUser=null;
+ function setMode(next){
+   mode=next; const signup=mode==="signup";
+   usernameWrap.style.display=signup?"block":"none"; displayWrap.style.display=signup?"block":"none";
+   document.getElementById("authUsername").required=signup;
+   title.textContent=signup?"Your account. Your universe.":"Welcome back.";
+   intro.textContent=signup?"Create your VYBORA account.":"Sign in to your VYBORA account.";
+   submit.textContent=signup?"Create account":"Sign in";
+   switchBtn.textContent=signup?"I already have an account":"Create a new account";
+   status.textContent="";
+ }
+ function openAuth(){gate.classList.add("open");setMode(currentUser?"signin":"signup");}
+ function closeAuth(){gate.classList.remove("open");}
+ document.getElementById("authClose").addEventListener("click",closeAuth);
+ gate.addEventListener("click",e=>{if(e.target===gate)closeAuth()});
+ switchBtn.addEventListener("click",()=>setMode(mode==="signup"?"signin":"signup"));
+ const profileBtn=document.getElementById("av");
+ profileBtn.addEventListener("contextmenu",e=>{e.preventDefault();openAuth()});
+ // Profile menu account actions are added without changing existing navigation.
+ const menu=document.getElementById("menu");
+ const accountItem=document.createElement("button"); accountItem.id="authMenuAction";
+ accountItem.textContent="Sign up / Sign in"; menu.appendChild(accountItem);
+ accountItem.addEventListener("click",()=>{menu.classList.remove("on");if(!currentUser)openAuth()});
+ async function refreshSession(){
+   const {data,error}=await supabaseClient.auth.getSession();
+   if(error){console.error("VYBORA session:",error.message);return}
+   currentUser=data.session?.user||null;
+   accountItem.textContent=currentUser?"Sign out":"Sign up / Sign in";
+   profileBtn.title=currentUser?("Signed in: "+(currentUser.email||"VYBORA user")):"Sign in";
+ }
+ accountItem.addEventListener("click",async e=>{
+   if(!currentUser)return;
+   e.stopImmediatePropagation();
+   const {error}=await supabaseClient.auth.signOut();
+   if(error){toast("Sign out failed: "+error.message);return}
+   currentUser=null;await refreshSession();toast("Signed out of VYBORA");
+ });
+ form.addEventListener("submit",async e=>{
+   e.preventDefault(); status.textContent="Connecting securely…";submit.disabled=true;
+   const email=document.getElementById("authEmail").value.trim();
+   const password=document.getElementById("authPassword").value;
+   try{
+    if(mode==="signup"){
+      const username=document.getElementById("authUsername").value.trim().toLowerCase();
+      const display_name=document.getElementById("authDisplay").value.trim()||username;
+      if(!/^[a-z0-9_]{3,24}$/.test(username))throw new Error("Username must be 3–24 characters: letters, numbers or underscores.");
+      const {data,error}=await supabaseClient.auth.signUp({email,password,options:{emailRedirectTo:location.origin, data:{username,display_name}}});
+      if(error)throw error;
+      if(data.session){currentUser=data.user;status.textContent="Account created and signed in.";closeAuth();toast("Welcome to VYBORA!");}
+      else{status.textContent="Account created. Check your email and confirm your address, then sign in.";form.reset();}
+    }else{
+      const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
+      if(error)throw error;
+      currentUser=data.user;status.textContent="Signed in successfully.";closeAuth();toast("Welcome back!");
     }
+    await refreshSession();
+   }catch(err){status.textContent=err.message||"Something went wrong. Please try again."}
+   finally{submit.disabled=false}
+ });
+ supabaseClient.auth.onAuthStateChange((_event,session)=>{
+   currentUser=session?.user||null;
+   accountItem.textContent=currentUser?"Sign out":"Sign up / Sign in";
+ });
+ refreshSession();
+ // First visit prompts account creation only after user chooses the profile control.
+})();
+</script>
+<!-- VYBORA FUTURISTIC PROFILE -->
+<style>
+#vyboraProfileBtn {
+  position:fixed;bottom:22px;right:22px;z-index:9998;
+  padding:14px 22px;border:1px solid #7c5cff;
+  border-radius:30px;background:#17132c;color:white;
+  font-weight:bold;cursor:pointer;
+  box-shadow:0 0 22px #7650ff66;
+}
+#vyboraProfileModal {
+  display:none;position:fixed;inset:0;z-index:9999;
+  background:#050510ed;backdrop-filter:blur(14px);
+  overflow-y:auto;padding:25px;
+}
+.vp-card {
+  max-width:650px;margin:35px auto;padding:28px;
+  border:1px solid #6650a8;border-radius:22px;
+  background:linear-gradient(145deg,#17152d,#101b29);
+  color:white;font-family:Arial,sans-serif;
+  box-shadow:0 0 35px #6545a455;
+}
+.vp-avatar {
+  width:115px;height:115px;border-radius:50%;
+  margin:15px auto;display:flex;align-items:center;
+  justify-content:center;font-size:38px;font-weight:bold;
+  background:linear-gradient(135deg,#7655ff,#00cdb7);
+  border:4px solid #b4a0ff;overflow:hidden;
+}
+.vp-avatar img {width:100%;height:100%;object-fit:cover}
+.vp-name {text-align:center;font-size:27px;margin:8px}
+.vp-muted {text-align:center;color:#aaa;margin:7px}
+.vp-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:25px 0}
+.vp-stat {background:#ffffff0b;padding:16px 5px;border-radius:13px;text-align:center}
+.vp-stat strong {display:block;color:#9c8aff;font-size:21px}
+.vp-label {font-size:12px;color:#aaa;margin-top:5px}
+.vp-input {
+  width:100%;box-sizing:border-box;padding:13px;margin:7px 0 15px;
+  background:#0c1020;color:white;border:1px solid #55477e;
+  border-radius:10px;
+}
+.vp-action {
+  padding:12px 18px;border:0;border-radius:10px;
+  background:linear-gradient(90deg,#7855ff,#00a99a);
+  color:white;font-weight:bold;cursor:pointer;margin:5px;
+}
+.vp-secondary {background:#33334b}
+.vp-section {border-top:1px solid #ffffff20;padding-top:18px;margin-top:20px}
+</style>
 
-    async function renderCurrentChat() {
-      const box = document.querySelector('#messages');
-      if (!box || loadingMessages) return;
-      loadingMessages = true;
-      stopLiveChat();
-      box.replaceChildren();
-      const divider = document.createElement('div');
-      divider.className = 'daydivider';
-      divider.textContent = 'VYBORA GLOBAL CHAT · LIVE';
-      box.append(divider);
-      window.VYBORA_UI.setLobbyHeader();
+<button id="vyboraProfileBtn">◈ MY PROFILE</button>
 
-      if (!currentUser) {
-        const note = document.createElement('div');
-        note.className = 'daydivider';
-        note.textContent = 'Sign in above to read and send live messages.';
-        box.append(note);
-        loadingMessages = false;
+<div id="vyboraProfileModal">
+  <div class="vp-card">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <strong style="color:#a995ff">VYBORA / IDENTITY SYSTEM</strong>
+      <button class="vp-action vp-secondary" id="vpClose">✕</button>
+    </div>
+
+    <div class="vp-avatar" id="vpAvatar">V</div>
+    <h2 class="vp-name" id="vpDisplayName">Loading profile...</h2>
+    <p class="vp-muted" id="vpUsername">@loading</p>
+    <p class="vp-muted" id="vpId">VYBORA ID: ...</p>
+
+    <div class="vp-grid">
+      <div class="vp-stat"><strong>01</strong><div class="vp-label">IDENTITY LEVEL</div></div>
+      <div class="vp-stat"><strong>XP</strong><div class="vp-label">COMING SOON</div></div>
+      <div class="vp-stat"><strong>∞</strong><div class="vp-label">POSSIBILITIES</div></div>
+    </div>
+
+    <div class="vp-section">
+      <h3>◈ ABOUT ME</h3>
+      <p id="vpBio" style="color:#c5c5d5">Loading...</p>
+    </div>
+
+    <div class="vp-section">
+      <h3>⚙ CUSTOMIZE IDENTITY</h3>
+
+      <label>Display name</label>
+      <input class="vp-input" id="vpEditName" maxlength="40">
+
+      <label>About me / Bio</label>
+      <textarea class="vp-input" id="vpEditBio" maxlength="300" rows="3"></textarea>
+
+      <label>Avatar image URL (optional)</label>
+      <input class="vp-input" id="vpEditAvatar" placeholder="https://example.com/image.jpg">
+
+      <button class="vp-action" id="vpSave">SAVE PROFILE</button>
+      <p id="vpMessage" style="color:#9c8aff"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const modal = document.getElementById("vyboraProfileModal");
+  const message = document.getElementById("vpMessage");
+
+  const showMessage = (text, color) => {
+    message.textContent = text;
+    message.style.color = color || "#9c8aff";
+  };
+
+  const openProfile = async () => {
+  modal.style.display = "block";
+  await loadVyboraProfile();
+};
+
+document.getElementById("vyboraProfileBtn").onclick = openProfile;
+document.getElementById("directVyboraProfile").onclick = openProfile;
+
+document.getElementById("openVyboraProfile").onclick = () => {
+  document.getElementById("menu").classList.remove("open");
+  openProfile();
+};
+  document.getElementById("vpClose").onclick = () => {
+    modal.style.display = "none";
+  };
+
+  async function loadVyboraProfile() {
+    try {
+      const { data: authData, error: authError } =
+        await supabaseClient.auth.getUser();
+
+      if (authError || !authData.user) {
+        document.getElementById("vpDisplayName").textContent = "Not signed in";
+        document.getElementById("vpUsername").textContent =
+          "Please sign in to view your profile.";
         return;
       }
 
-      const { data, error } = await supabase
-  .from('vybora_messages')
-  .select('id,user_id,username,message,created_at')
-  .order('created_at', { ascending: true })
-  .limit(100);
+      const user = authData.user;
 
-if (error) {
-  status('Could not load chat: ' + error.message);
-  loadingMessages = false;
-  return;
-}
+      const { data: profile, error } = await supabaseClient
+        .from("profiles")
+        .select("username,display_name,bio,avatar_url")
+        .eq("id", user.id)
+        .maybeSingle();
 
-const messages = data || [];
+      if (error) throw error;
 
-// Get saved profiles for the people who sent these messages.
-const userIds = [...new Set(messages.map(m => m.user_id).filter(Boolean))];
-let profilesById = {};
+      if (!profile) {
+        showMessage("Profile record not found. Check your Supabase profile trigger.", "#ff9b9b");
+        return;
+      }
 
-if (userIds.length) {
-  const { data: profiles, error: profileError } = await supabase
-    .from('vybora_profiles')
-    .select('id,username,display_name')
-    .in('id', userIds);
+      const displayName = profile.display_name || profile.username || "VYBORA User";
 
-  if (profileError) {
-    console.warn('Could not load chat profiles:', profileError.message);
-  } else {
-    profilesById = Object.fromEntries(
-      (profiles || []).map(p => [p.id, p])
-    );
+      document.getElementById("vpDisplayName").textContent = displayName;
+      document.getElementById("vpUsername").textContent = "@" + profile.username;
+      document.getElementById("vpId").textContent =
+        "VYBORA ID: " + user.id.slice(0, 8).toUpperCase();
+      document.getElementById("vpBio").textContent =
+        profile.bio || "This user hasn't written a bio yet.";
+
+      document.getElementById("vpEditName").value =
+        profile.display_name || "";
+      document.getElementById("vpEditBio").value = profile.bio || "";
+      document.getElementById("vpEditAvatar").value =
+        profile.avatar_url || "";
+
+      const avatar = document.getElementById("vpAvatar");
+      avatar.replaceChildren();
+
+      if (profile.avatar_url) {
+        const img = document.createElement("img");
+        img.src = profile.avatar_url;
+        img.alt = "Profile picture";
+        img.onerror = () => {
+          avatar.textContent = displayName.charAt(0).toUpperCase();
+        };
+        avatar.appendChild(img);
+      } else {
+        avatar.textContent = displayName.charAt(0).toUpperCase();
+      }
+
+      showMessage("Profile loaded successfully.");
+    } catch (error) {
+      showMessage(error.message || "Could not load profile.", "#ff9b9b");
+    }
   }
-}
 
-for (const m of messages) {
-  const profile = profilesById[m.user_id] || {};
-  const displayName =
-    profile.display_name ||
-    profile.username ||
-    m.username ||
-    'VYBORA player';
+  document.getElementById("vpSave").onclick = async () => {
+    try {
+      const { data: authData, error: authError } =
+        await supabaseClient.auth.getUser();
 
-  window.VYBORA_UI.renderMessage({
-    name: displayName,
-    username: profile.username || '',
-    avatarText: displayName.trim().charAt(0).toUpperCase(),
-    text: m.message || '',
-    time: m.created_at
-      ? new Date(m.created_at).toLocaleTimeString([], {
-          hour: '2-digit',
-          minute: '2-digit'
-        })
-      : 'just now',
-    mine: m.user_id === currentUser.id
-  });
-}
+      if (authError || !authData.user) {
+        showMessage("Please sign in first.", "#ff9b9b");
+        return;
+      }
 
-      channel = supabase.channel('vybora-global-chat')
-        .on('postgres_changes', {
-          event: 'INSERT', schema: 'public', table: 'vybora_messages'
-        }, payload => {
-          const m = payload.new;
-          if (!m) return;
-          window.VYBORA_UI.renderMessage({
-            name: m.username || 'VYBORA player',
-            text: m.message || '',
-            time: m.created_at ? new Date(m.created_at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : 'just now',
-            mine: m.user_id === currentUser?.id
-          });
-        })
-        .subscribe((state) => {
-          if (state === 'CHANNEL_ERROR') status('Live updates could not start. Check that Realtime is enabled for vybora_messages.');
-        });
+      const display_name =
+        document.getElementById("vpEditName").value.trim();
+      const bio = document.getElementById("vpEditBio").value.trim();
+      const avatar_url =
+        document.getElementById("vpEditAvatar").value.trim();
 
-      loadingMessages = false;
+      if (!display_name) {
+        showMessage("Please enter a display name.", "#ff9b9b");
+        return;
+      }
+
+      if (avatar_url) {
+        try {
+          const url = new URL(avatar_url);
+          if (url.protocol !== "https:") throw new Error();
+        } catch {
+          showMessage("Please enter a valid HTTPS image URL.", "#ff9b9b");
+          return;
+        }
+      }
+
+      const { error } = await supabaseClient
+        .from("profiles")
+        .update({ display_name, bio, avatar_url: avatar_url || null })
+        .eq("id", authData.user.id);
+
+      if (error) throw error;
+
+      showMessage("Profile saved successfully! ✓", "#64e8bb");
+      await loadVyboraProfile();
+
+    } catch (error) {
+      showMessage(error.message || "Profile could not be saved.", "#ff9b9b");
+    }
+  };
+})();
+
+</script>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+
+  const search = $("frSearch");
+  const results = $("frSearchResults");
+  const incomingList = $("frIncomingList");
+  const sentList = $("frSentList");
+  const friendsList = $("frFriendsList");
+  const message = $("frMessage");
+
+  let currentUser = null;
+
+  function notify(text) {
+    message.textContent = text;
+  }
+
+  function makeButton(label, action) {
+    const button = document.createElement("button");
+    button.className = "fr-action";
+    button.textContent = label;
+    button.addEventListener("click", action);
+    return button;
+  }
+
+  function showEmpty(container, text) {
+    container.replaceChildren();
+    const p = document.createElement("p");
+    p.className = "fr-muted";
+    p.textContent = text;
+    container.appendChild(p);
+  }
+
+  function renderPerson(container, profile, buttons = []) {
+    const item = document.createElement("div");
+    item.className = "fr-user";
+
+    const info = document.createElement("div");
+    info.className = "fr-user-info";
+
+    const name = document.createElement("strong");
+    name.textContent = profile.display_name || profile.username || "VYBORA User";
+
+    const username = document.createElement("small");
+    username.textContent = "@" + (profile.username || "user");
+
+    info.append(name, username);
+    item.appendChild(info);
+
+    const actions = document.createElement("div");
+    actions.style.display = "flex";
+    actions.style.gap = "7px";
+    actions.style.flexWrap = "wrap";
+
+    buttons.forEach(button => actions.appendChild(button));
+    item.appendChild(actions);
+
+    container.appendChild(item);
+  }
+
+  async function getProfiles(ids) {
+    const uniqueIds = [...new Set(ids)].filter(Boolean);
+    if (!uniqueIds.length) return {};
+
+    const { data, error } = await supabaseClient
+      .from("profiles")
+      .select("id,username,display_name,avatar_url")
+      .in("id", uniqueIds);
+
+    if (error) throw error;
+
+    return Object.fromEntries((data || []).map(p => [p.id, p]));
+  }
+
+  async function loadNetwork() {
+    try {
+      const { data: authData, error: authError } =
+        await supabaseClient.auth.getUser();
+
+      if (authError) throw authError;
+
+      currentUser = authData.user;
+
+      if (!currentUser) {
+        notify("Please sign in to use Friends.");
+        return;
+      }
+
+      const { data: rows, error } = await supabaseClient
+        .from("friendships")
+        .select("requester_id,addressee_id,status,created_at")
+        .or(
+          `requester_id.eq.${currentUser.id},addressee_id.eq.${currentUser.id}`
+        );
+
+      if (error) throw error;
+
+      const allRows = rows || [];
+
+      const incoming = allRows.filter(r =>
+        r.status === "pending" && r.addressee_id === currentUser.id
+      );
+
+      const sent = allRows.filter(r =>
+        r.status === "pending" && r.requester_id === currentUser.id
+      );
+
+      const accepted = allRows.filter(r => r.status === "accepted");
+
+      const ids = [
+        ...incoming.map(r => r.requester_id),
+        ...sent.map(r => r.addressee_id),
+        ...accepted.map(r =>
+          r.requester_id === currentUser.id
+            ? r.addressee_id
+            : r.requester_id
+        )
+      ];
+
+      const profiles = await getProfiles(ids);
+
+      $("frCount").textContent = accepted.length;
+      $("frIncoming").textContent = incoming.length;
+      $("frSent").textContent = sent.length;
+
+      showEmpty(incomingList, "No incoming requests.");
+      showEmpty(sentList, "No pending sent requests.");
+      showEmpty(friendsList, "No friends yet.");
+
+      if (incoming.length) incomingList.replaceChildren();
+      if (sent.length) sentList.replaceChildren();
+      if (accepted.length) friendsList.replaceChildren();
+
+      incoming.forEach(row => {
+        const profile = profiles[row.requester_id];
+        if (!profile) return;
+
+        renderPerson(incomingList, profile, [
+          makeButton("Accept", () => updateRequest(row, "accepted")),
+          makeButton("Reject", () => updateRequest(row, "rejected"))
+        ]);
+      });
+
+      sent.forEach(row => {
+        const profile = profiles[row.addressee_id];
+        if (!profile) return;
+
+        renderPerson(sentList, profile, [
+          makeButton("Pending", () => {})
+        ]);
+      });
+
+      accepted.forEach(row => {
+        const friendId = row.requester_id === currentUser.id
+          ? row.addressee_id
+          : row.requester_id;
+
+        const profile = profiles[friendId];
+        if (!profile) return;
+
+        renderPerson(friendsList, profile, [
+          makeButton("Remove", () => removeFriend(row))
+        ]);
+      });
+
+      notify("Friends network updated.");
+    } catch (error) {
+      console.error(error);
+      notify("Could not load Friends: " + error.message);
+    }
+  }
+
+  async function updateRequest(row, status) {
+    try {
+      const { error } = await supabaseClient
+        .from("friendships")
+        .update({ status })
+        .eq("requester_id", row.requester_id)
+        .eq("addressee_id", currentUser.id)
+        .eq("status", "pending");
+
+      if (error) throw error;
+
+      notify(status === "accepted" ? "Friend request accepted!" : "Request rejected.");
+      await loadNetwork();
+    } catch (error) {
+      notify("Action failed: " + error.message);
+    }
+  }
+
+  async function removeFriend(row) {
+    if (!confirm("Remove this friend?")) return;
+
+    try {
+      const { error } = await supabaseClient
+        .from("friendships")
+        .delete()
+        .eq("requester_id", row.requester_id)
+        .eq("addressee_id", row.addressee_id)
+        .eq("status", "accepted");
+
+      if (error) throw error;
+
+      notify("Friend removed.");
+      await loadNetwork();
+    } catch (error) {
+      notify("Could not remove friend: " + error.message);
+    }
+  }
+
+  async function searchPeople() {
+    const term = search.value.trim();
+
+    if (term.length < 2) {
+      showEmpty(results, "Enter at least 2 characters to search.");
+      return;
     }
 
-    window.VYBORA_CLOUD.renderCurrentChat = renderCurrentChat;
-    window.VYBORA_CLOUD.sendMessage = async (text) => {
-      const clean = String(text || '').trim();
-      if (!currentUser) { status('Please sign in before sending a live message.'); return; }
-      if (!clean || clean.length > 2000) { status('Message must contain 1–2,000 characters.'); return; }
-      const input = document.querySelector('#messageInput');
-      if (input) input.value = '';
-      const username = (currentUser.user_metadata?.display_name || currentUser.email?.split('@')[0] || 'VYBORA player').slice(0,30);
-      const { error } = await supabase.from('vybora_messages').insert({
-        user_id: currentUser.id, username, message: clean
-      });
-      if (error) status('Message could not be sent: ' + error.message);
-    };
+    try {
+      const { data, error } = await supabaseClient
+        .from("profiles")
+        .select("id,username,display_name,avatar_url")
+        .ilike("username", `%${term}%`)
+        .neq("id", currentUser.id)
+        .limit(12);
 
-    $v('#vSignup').onclick = async () => {
-      const name = $v('#vName').value.trim().slice(0,30);
-      const email = $v('#vEmail').value.trim();
-      const password = $v('#vPassword').value;
-      if (!name) return status('Please enter a display name.');
-      if (password.length < 6) return status('Use a password with at least 6 characters.');
-      const { error } = await supabase.auth.signUp({
-        email, password, options: { data: { display_name: name } }
-      });
-      if (error) status('Sign-up error: ' + error.message);
-      else status('Account request submitted. If email confirmation is enabled, check your inbox to confirm it, then sign in.');
-    };
+      if (error) throw error;
 
-    $v('#vLogin').onclick = async () => {
-      const { error } = await supabase.auth.signInWithPassword({
-        email: $v('#vEmail').value.trim(),
-        password: $v('#vPassword').value
-      });
-      if (error) status('Sign-in error: ' + error.message);
-    };
+      results.replaceChildren();
 
-    $v('#vLogout').onclick = async () => {
-      const { error } = await supabase.auth.signOut();
-      if (error) status('Sign-out error: ' + error.message);
-    };
-
-    supabase.auth.onAuthStateChange((_event, session) => {
-      currentUser = session?.user || null;
-      $v('#vSignup').hidden = !!currentUser;
-      $v('#vLogin').hidden = !!currentUser;
-      $v('#vLogout').hidden = !currentUser;
-      $v('#vName').hidden = !!currentUser;
-      $v('#vEmail').hidden = !!currentUser;
-      $v('#vPassword').hidden = !!currentUser;
-      status(currentUser
-        ? 'Signed in as ' + (currentUser.user_metadata?.display_name || currentUser.email) + '. Open Messages to use the live chat.'
-        : 'Sign in or create an account to join VYBORA’s live chat.');
-      if (window.VYBORA_CLOUD.enabled) {
-        loadingMessages = false;
-        if (document.querySelector('#view-messages')?.classList.contains('active')) renderCurrentChat();
+      if (!data || !data.length) {
+        showEmpty(results, "No users found.");
+        return;
       }
-    });
-  } catch (error) {
-    window.VYBORA_CLOUD.enabled = false;
-    status('Supabase could not start: ' + error.message + '. Check your project URL and publishable key.');
+
+      const { data: relations, error: relationError } =
+        await supabaseClient
+          .from("friendships")
+          .select("requester_id,addressee_id,status")
+          .or(
+            `requester_id.eq.${currentUser.id},addressee_id.eq.${currentUser.id}`
+          );
+
+      if (relationError) throw relationError;
+
+      data.forEach(profile => {
+        const relation = (relations || []).find(r =>
+          (r.requester_id === currentUser.id &&
+           r.addressee_id === profile.id) ||
+          (r.requester_id === profile.id &&
+           r.addressee_id === currentUser.id)
+        );
+
+        let button;
+
+        if (relation?.status === "accepted") {
+          button = makeButton("Already friends", () => {});
+          button.disabled = true;
+        } else if (relation?.status === "pending") {
+          button = makeButton(
+            relation.requester_id === currentUser.id
+              ? "Request sent"
+              : "Respond to request",
+            () => loadNetwork()
+          );
+          button.disabled = true;
+        } else {
+          button = makeButton("＋ Add friend", async () => {
+            button.disabled = true;
+
+            const { error: insertError } = await supabaseClient
+              .from("friendships")
+              .insert({
+                requester_id: currentUser.id,
+                addressee_id: profile.id,
+                status: "pending"
+              });
+
+            if (insertError) {
+              notify("Could not send request: " + insertError.message);
+              button.disabled = false;
+              return;
+            }
+
+            button.textContent = "Request sent";
+            notify("Friend request sent!");
+            await loadNetwork();
+          });
+        }
+
+        renderPerson(results, profile, [button]);
+      });
+    } catch (error) {
+      console.error(error);
+      notify("Search failed: " + error.message);
+    }
   }
-}
+
+  search.addEventListener("input", searchPeople);
+  $("frRefresh").addEventListener("click", loadNetwork);
+
+  loadNetwork();
+})();
 </script>
- <script type="module">
-  
-import { createClient } from
-  'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-const SOCIAL_URL = 'https://rkdbdxocclwiwoobupvd.supabase.co';
-const SOCIAL_KEY = 'sb_publishable_3Hh42OejAF7fYE65ky5xqQ_0JsReg55';
-const socialDb = createClient(SOCIAL_URL, SOCIAL_KEY);
-
-const vs = (id) => document.getElementById(id);
-const vsStatus = (message) => {
-  if (vs('vsStatus')) vs('vsStatus').textContent = message;
-};
-
-let socialUser = null;
-let activePrivateConversation = null;
-let privateChannel = null;
-let lastPrivateMessageId = null;
-
-function vsNode(tag, text) {
-  const el = document.createElement(tag);
-  el.textContent = text ?? '';
-  return el;
-}
-
-function vsButton(text, action) {
-  const button = vsNode('button', text);
-  button.type = 'button';
-  button.addEventListener('click', action);
-  return button;
-}
-
-function vsClear(id) {
-  vs(id)?.replaceChildren();
-}
-
-function vsAddLine(containerId, text, buttonText, action) {
-  const container = vs(containerId);
-  if (!container) return;
-  const line = document.createElement('div');
-  line.style.cssText =
-    'display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0';
-  line.append(vsNode('span', text));
-  if (buttonText) line.append(vsButton(buttonText, action));
-  container.append(line);
-}
-
-function vsCleanUsername(value) {
-  return String(value || '').trim().toLowerCase();
-}
-
-async function vsLoadProfile() {
-  if (!socialUser) return;
-
-  const { data, error } = await socialDb
-    .from('vybora_profiles')
-    .select('username,display_name,bio')
-    .eq('id', socialUser.id)
-    .maybeSingle();
-
-  if (error) {
-    vsStatus('Profile could not load: ' + error.message);
-    return;
-  }
-
-  if (data) {
-    vs('vsUsername').value = data.username;
-    vs('vsDisplayName').value = data.display_name;
-    vs('vsBio').value = data.bio || '';
-    return;
-  }
-
-  // Suggest a username for a new profile.
-  const base = String(
-    socialUser.user_metadata?.display_name ||
-    socialUser.email?.split('@')[0] || 'vybora_user'
-  ).toLowerCase().replace(/[^a-z0-9_]/g, '').slice(0, 15);
-
-  vs('vsUsername').value = base.length >= 3 ? base : 'user_' + socialUser.id.slice(0, 8);
-  vs('vsDisplayName').value =
-    socialUser.user_metadata?.display_name || base || 'VYBORA user';
-}
-
-vs('vsSaveProfile').addEventListener('click', async () => {
-  if (!socialUser) return vsStatus('Sign in to save your profile.');
-
-  const username = vsCleanUsername(vs('vsUsername').value);
-  const displayName = vs('vsDisplayName').value.trim();
-  const bio = vs('vsBio').value.trim();
-
-  if (!/^[a-z0-9_]{3,20}$/.test(username))
-    return vsStatus('Username must be 3–20 characters: lowercase letters, numbers or underscores.');
-  if (!displayName || displayName.length > 30)
-    return vsStatus('Enter a display name of up to 30 characters.');
-  if (bio.length > 160)
-    return vsStatus('Your bio must be 160 characters or fewer.');
-
-  const { error } = await socialDb.from('vybora_profiles').upsert({
-    id: socialUser.id,
-    username,
-    display_name: displayName,
-    bio
-  });
-
-  vsStatus(error
-    ? 'Could not save profile: ' + error.message
-    : 'Profile saved! Your username is @' + username);
-});
-
-async function vsSearchPeople() {
-  if (!socialUser) return vsStatus('Sign in to find people.');
-
-  const query = vs('vsSearch').value.trim();
-  if (query.length < 2) return vsStatus('Type at least 2 characters to search.');
-
-  const safe = query.replace(/[,%()]/g, ' ').trim();
-  const { data, error } = await socialDb
-    .from('vybora_profiles')
-    .select('id,username,display_name,bio')
-    .neq('id', socialUser.id)
-    .or(`username.ilike.%${safe}%,display_name.ilike.%${safe}%`)
-    .limit(20);
-
-  if (error) return vsStatus('Search failed: ' + error.message);
-
-  vsClear('vsSearchResults');
-  if (!data?.length) {
-    vsAddLine('vsSearchResults', 'No matching profiles found.');
-    return;
-  }
-
-  for (const person of data) {
-    const label = `${person.display_name} (@${person.username})` +
-      (person.bio ? ' — ' + person.bio : '');
-    vsAddLine('vsSearchResults', label, 'Add friend', async () => {
-      const { error: requestError } = await socialDb
-        .from('vybora_friendships')
-        .insert({
-          requester_id: socialUser.id,
-          addressee_id: person.id,
-          status: 'pending'
-        });
-
-      vsStatus(requestError
-        ? 'Friend request not sent: ' + requestError.message
-        : 'Friend request sent to @' + person.username + '!');
-      await vsLoadRequests();
-    });
-  }
-}
-
-vs('vsSearchButton').addEventListener('click', vsSearchPeople);
-vs('vsSearch').addEventListener('keydown', (event) => {
-  if (event.key === 'Enter') {
-    event.preventDefault();
-    vsSearchPeople();
-  }
-});
-
-async function vsLoadRequests() {
-  if (!socialUser) return;
-  vsClear('vsRequests');
-
-  const { data, error } = await socialDb
-    .from('vybora_friendships')
-    .select('id,requester_id,addressee_id,status')
-    .eq('addressee_id', socialUser.id)
-    .eq('status', 'pending');
-
-  if (error) return vsStatus('Requests could not load: ' + error.message);
-  if (!data?.length) {
-    vsAddLine('vsRequests', 'No pending requests.');
-    return;
-  }
-
-  for (const request of data) {
-    const { data: profile } = await socialDb
-      .from('vybora_profiles')
-      .select('username,display_name')
-      .eq('id', request.requester_id)
-      .maybeSingle();
-
-    const name = profile
-      ? `${profile.display_name} (@${profile.username})`
-      : 'VYBORA user';
-
-    vsAddLine('vsRequests', name, 'Accept', async () => {
-     const { data: accepted, error: acceptError } =
-  await socialDb.rpc('vybora_accept_friend_request', {
-    p_request_id: request.id
-  });
-
-vsStatus(
-  acceptError
-    ? 'Could not accept request: ' + acceptError.message
-    : accepted
-      ? 'Friend request accepted!'
-      : 'This request is no longer pending.'
-);
-
-await vsRefreshSocial();
-    });
-  }
-}
-
-async function vsLoadFriends() {
-  if (!socialUser) return;
-  vsClear('vsFriends');
-
-  const { data: rows, error } = await socialDb
-    .from('vybora_friendships')
-    .select('requester_id,addressee_id')
-    .eq('status', 'accepted')
-    .or(`requester_id.eq.${socialUser.id},addressee_id.eq.${socialUser.id}`);
-
-  if (error) return vsStatus('Friends could not load: ' + error.message);
-  if (!rows?.length) {
-    vsAddLine('vsFriends', 'No friends yet. Search for someone above!');
-    return;
-  }
-
-  for (const row of rows) {
-    const friendId = row.requester_id === socialUser.id
-      ? row.addressee_id : row.requester_id;
-
-    const { data: profile } = await socialDb
-      .from('vybora_profiles')
-      .select('id,username,display_name')
-      .eq('id', friendId)
-      .maybeSingle();
-
-    if (!profile) continue;
-
-    vsAddLine('vsFriends',
-      `${profile.display_name} (@${profile.username})`,
-      'Message privately', () => vsOpenPrivateChat(profile));
-  }
-}
-
-async function vsRefreshSocial() {
-  await Promise.all([vsLoadRequests(), vsLoadFriends()]);
-}
-
-function vsRenderPrivateMessage(message) {
-  if (message.id && message.id === lastPrivateMessageId) return;
-  if (message.id) lastPrivateMessageId = message.id;
-
-  const box = vs('vsPrivateMessages');
-  if (!box) return;
-
-  const line = document.createElement('div');
-  line.style.cssText = 'padding:7px 0;border-bottom:1px solid #7774';
-
-  const isMine = message.sender_id === socialUser?.id;
-  const heading = vsNode('strong', isMine ? 'You' : 'Friend');
-  const body = vsNode('div', message.body);
-  const time = vsNode('small',
-    message.created_at
-      ? new Date(message.created_at).toLocaleString()
-      : 'Just now');
-
-  line.append(heading, body, time);
-  box.append(line);
-  box.scrollTop = box.scrollHeight;
-}
-
-async function vsOpenPrivateChat(friend) {
-  if (!socialUser) return vsStatus('Sign in to message friends.');
-
-  const { data: conversationId, error } = await socialDb.rpc(
-    'vybora_open_direct', { p_other_user: friend.id }
-  );
-
-  if (error) return vsStatus('Could not open private chat: ' + error.message);
-
-  if (privateChannel) await socialDb.removeChannel(privateChannel);
-  privateChannel = null;
-  activePrivateConversation = conversationId;
-  lastPrivateMessageId = null;
-
-  vs('vsPrivateChat').hidden = false;
-  vs('vsChatTitle').textContent =
-    'Private chat with ' + friend.display_name + ' (@' + friend.username + ')';
-  vsClear('vsPrivateMessages');
-
-  const { data, error: loadError } = await socialDb
-    .from('vybora_private_messages')
-    .select('id,conversation_id,sender_id,body,created_at')
-    .eq('conversation_id', conversationId)
-    .order('created_at', { ascending: true })
-    .limit(100);
-
-  if (loadError) {
-    vsStatus('Messages could not load: ' + loadError.message);
-    return;
-  }
-
-  for (const message of data || []) vsRenderPrivateMessage(message);
-
-  privateChannel = socialDb
-    .channel('vybora-private-' + conversationId)
-    .on('postgres_changes', {
-      event: 'INSERT',
-      schema: 'public',
-      table: 'vybora_private_messages',
-      filter: 'conversation_id=eq.' + conversationId
-    }, (payload) => {
-      const message = payload.new;
-      if (message?.conversation_id === activePrivateConversation) {
-        vsRenderPrivateMessage(message);
-      }
-    })
-    .subscribe((state) => {
-      if (state === 'CHANNEL_ERROR')
-        vsStatus('Private live updates failed. Check Supabase Realtime and table policies.');
-    });
-
-  vsStatus('Private conversation opened.');
-}
-
-vs('vsSendForm').addEventListener('submit', async (event) => {
-  event.preventDefault();
-
-  if (!socialUser || !activePrivateConversation)
-    return vsStatus('Open a friend conversation first.');
-
-  const body = vs('vsMessageInput').value.trim();
-  if (!body || body.length > 2000) return;
-
-  const { error } = await socialDb
-    .from('vybora_private_messages')
-    .insert({
-      conversation_id: activePrivateConversation,
-      sender_id: socialUser.id,
-      body
-    });
-
-  if (error) return vsStatus('Message not sent: ' + error.message);
-
-  vs('vsMessageInput').value = '';
-  // Realtime delivers the saved message. No optimistic duplicate is added.
-});
-
-vs('vsCloseChat').addEventListener('click', async () => {
-  if (privateChannel) await socialDb.removeChannel(privateChannel);
-  privateChannel = null;
-  activePrivateConversation = null;
-  vs('vsPrivateChat').hidden = true;
-  vsClear('vsPrivateMessages');
-});
-
-async function vsSetSocialUser(user) {
-  socialUser = user || null;
-  if (!socialUser) {
-    if (privateChannel) await socialDb.removeChannel(privateChannel);
-    privateChannel = null;
-    activePrivateConversation = null;
-    vs('vsPrivateChat').hidden = true;
-    vsStatus('Sign in using the account bar to use profiles and private messages.');
-    return;
-  }
-
-  vsStatus('Signed in. Load or create your profile.');
-  await vsLoadProfile();
-  await vsRefreshSocial();
-}
-
-socialDb.auth.onAuthStateChange((_event, session) => {
-  // Defer work so the auth callback does not hold up Supabase auth processing.
-  Promise.resolve().then(() => vsSetSocialUser(session?.user || null));
-});
-
-const { data: initialSession } = await socialDb.auth.getSession();
-await vsSetSocialUser(initialSession.session?.user || null);
-
-// Optional bridge for other VYBORA UI components.
-window.VYBORA_SOCIAL = {
-  searchPeople: vsSearchPeople,
-  refresh: vsRefreshSocial,
-  openPrivateChat: vsOpenPrivateChat
-};
-</script>
 </body></html>
